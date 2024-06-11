@@ -1,3 +1,6 @@
+body > #version::before {
+  content: "CSS v1.1";
+}
 /*
     baer1 website
     Copyright (C) 2024  baer1
@@ -135,6 +138,9 @@ body > #version {
   user-select: none;
   transition: 50ms ease-out color;
   font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  text-align: right;
 }
 body > #version:hover {
   color: #fff;

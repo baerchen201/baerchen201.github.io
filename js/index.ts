@@ -1,3 +1,4 @@
+const VERSION: string = "v1.1";
 /*
     baer1 website
     Copyright (C) 2024  baer1
@@ -12,6 +13,12 @@
 
     videocreator@outlook.de
 */
+
+window.addEventListener("load", () => {
+  let s: HTMLStyleElement = document.createElement("style");
+  document.head.appendChild(s);
+  s.sheet!.insertRule(`body>#version::after{content: "Script ${VERSION}"}`);
+});
 
 window.addEventListener("load", () => {
   let buttons: HTMLCollectionOf<HTMLButtonElement> = document
