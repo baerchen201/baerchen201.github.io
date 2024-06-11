@@ -1,14 +1,109 @@
+<!--
+    baer1 website
+    Copyright (C) 2024  baer1
+
+    This website is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    A copy of the GNU General Public License should be hosted along with
+    this website (LICENSE). If not, see <https://www.gnu.org/licenses/>.
+
+    videocreator@outlook.de
+-->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>baer1's future website</title>
+    <title>baer1's website</title>
+    <link rel="stylesheet" href="css/index.css" />
   </head>
   <body>
-    Yeah, I will actually create this website once I have some time left and I'm
-    bored again, so........
-    <h1>Hello, World!</h1>
-    i guess
+    <div id="donut" class="donut"></div>
+    <script src="js/donut.js" defer></script>
+    <div id="content">
+      <div>
+        BAER1 <span>Creating shitty websites since 2017</span
+        ><span
+          >Coding useless "malware" since 2020 <br />
+          <span style="font-size: x-small"
+            >(and getting banned off discord for doing that since 2024)</span
+          ></span
+        >
+      </div>
+      <button
+        data-href="https://t.me/baer1"
+        style="
+        --color:36, 161, 222;
+        --useless-color-source-variable: https://www.brandcolorcode.com/telegram;
+        --useless-icon-source-variable: https://telegram.org/tour/screenshots;
+        "
+      >
+        <img src="img/telegram_Logo.svg" alt="" />Telegram
+      </button>
+      <button
+        data-href="https://steamcommunity.com/id/baerchen201"
+        style="
+          --color: 27, 40, 56;
+          --hover-color: 42, 71, 94;
+          --disabled-color: 23, 26, 33;
+          --useless-color-source-variable: https://colorswall.com/palette/193;
+          --useless-icon-source-variable: https://de.wikipedia.org/wiki/Datei:Steam_icon_logo.svg;
+        "
+      >
+        <img src="img/Steam_icon_logo.svg" alt="" />Steam
+      </button>
+      <button
+        data-href="https://discord.gg/yeah_i_got_banned_did_you_seriously_expect_to_find_an_invite_link_here?"
+        style="
+          --color: 88, 101, 242;
+          --hover-color: 109, 121, 255;
+          --disabled-color: 35, 31, 75;
+          --useless-color-and-icon-source-variable: https://discord.com/branding;
+        "
+        disabled
+      >
+        <img src="img/discord-mark-white.svg" alt="fuck " />Discord
+      </button>
+      <button
+        data-href="https://github.com/baerchen201"
+        style="
+        --color: 36, 41, 46; 
+        --hover-color: 43, 49, 55;
+        --useless-color-source-variable: https://www.color-hex.com/color-palette/41067;
+        --useless-icon-source-variable: https://github.com/logos;
+        "
+      >
+        <img src="img/github-mark-white.svg" alt="" />Github
+      </button>
+      <button
+        data-href="https://youtube.com/@baer1"
+        style="
+        --color: 255,0,0; 
+        --hover-color: 255,0,0;
+        --disabled-color: 40, 40, 40;
+        --useless-color-source-variable: https://www.youtube.com/howyoutubeworks/resources/brand-resources/#logos-icons-and-colors;
+        --useless-icon-source-variable: https://commons.wikimedia.org/wiki/File:YouTube_dark_icon_%282017%29.svg;
+        "
+      >
+        <img src="img/YouTube_dark_icon_(2017).svg" alt="" />Youtube
+      </button>
+      <button
+        data-href="https://tiktok.com/@baerchen201"
+        style="
+        --color: 0,0,0;
+        --useless-color-source-variable: https://www.designpieces.com/palette/tiktok-color-palette-hex-and-rgb/;
+        --useless-icon-source-variable: https://www.svgrepo.com/svg/452114/tiktok;
+        "
+        class="tiktok"
+      >
+        <img src="img/tiktok.svg" alt="" />TikTok
+      </button>
+    </div>
+    <script src="js/index.js"></script>
+    <div id="version">v1.0</div>
   </body>
 </html>

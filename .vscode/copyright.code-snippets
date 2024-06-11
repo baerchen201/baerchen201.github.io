@@ -1,0 +1,27 @@
+{
+  "HTML copyright": {
+    "prefix": "!copyright-html",
+    "body": [
+      "<!--",
+      "    baer1 website\n    Copyright (C) 2024  baer1\n\n    This website is free software: you can redistribute it and/or modify\n    it under the terms of the GNU General Public License as published by\n    the Free Software Foundation, either version 3 of the License, or\n    (at your option) any later version.\n\n    A copy of the GNU General Public License should be hosted along with\n    this website (LICENSE). If not, see <https://www.gnu.org/licenses/>.\n\n    videocreator@outlook.de",
+      "-->\n"
+    ],
+    "description": "Insert copyright from LICENSE file formatted for HTML"
+  },
+  "JS/CSS copyright": {
+    "prefix": "!copyright-js",
+    "body": [
+      "/*",
+      "    baer1 website\n    Copyright (C) 2024  baer1\n\n    This website is free software: you can redistribute it and/or modify\n    it under the terms of the GNU General Public License as published by\n    the Free Software Foundation, either version 3 of the License, or\n    (at your option) any later version.\n\n    A copy of the GNU General Public License should be hosted along with\n    this website (LICENSE). If not, see <https://www.gnu.org/licenses/>.\n\n    videocreator@outlook.de",
+      "*/\n"
+    ],
+    "description": "Insert copyright from LICENSE file formatted for JS and CSS"
+  },
+  "Copyright": {
+    "prefix": "!copyright",
+    "body": [
+      "    baer1 website\n    Copyright (C) 2024  baer1\n\n    This website is free software: you can redistribute it and/or modify\n    it under the terms of the GNU General Public License as published by\n    the Free Software Foundation, either version 3 of the License, or\n    (at your option) any later version.\n\n    A copy of the GNU General Public License should be hosted along with\n    this website (LICENSE). If not, see <https://www.gnu.org/licenses/>.\n\n    videocreator@outlook.de"
+    ],
+    "description": "Insert copyright from LICENSE file"
+  }
+}

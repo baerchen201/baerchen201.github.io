@@ -1,0 +1,145 @@
+/*
+    baer1 website
+    Copyright (C) 2024  baer1
+
+    This website is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    A copy of the GNU General Public License should be hosted along with
+    this website (LICENSE). If not, see <https://www.gnu.org/licenses/>.
+
+    videocreator@outlook.de
+*/
+
+body {
+  color: #ffffff;
+  background: #000000;
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+body > #content {
+  background: #000000a0;
+  padding: 25px;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 7em;
+
+  grid-auto-rows: 1fr;
+  grid-template-areas: "title title";
+}
+#content > div {
+  grid-area: title;
+  font-size: 3em;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, monospace;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+#content > div > span {
+  font-size: calc(1em / 3);
+  word-wrap: normal;
+}
+#content > button {
+  --color: 43, 168, 251;
+  --text-color: 255, 255, 255;
+  --hover-color: 111, 197, 255;
+  --disabled-color: 0, 62, 104;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  gap: 8px;
+
+  padding: 12.5px 30px;
+  border: 0;
+  border-radius: 100px;
+  background-color: rgb(var(--color));
+  color: rgb(var(--text-color));
+  font-weight: Bold;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  cursor: pointer;
+  z-index: 0;
+}
+#content > button:not(:disabled):hover {
+  background-color: rgb(var(--hover-color));
+  box-shadow: 0 0 20px rgba(var(--hover-color), 0.314);
+  transform: scale(1.1);
+  z-index: 2;
+}
+#content > button:disabled {
+  background-color: rgb(var(--disabled-color));
+  cursor: default;
+}
+_ > #content > button:active {
+  background-color: #3d94cf;
+  transition: all 0.25s;
+  -webkit-transition: all 0.25s;
+  box-shadow: none;
+  transform: scale(0.98);
+}
+
+#content > button > img {
+  height: 30px;
+  pointer-events: none;
+}
+.donut {
+  white-space: pre;
+  font-family: monospace;
+  background: #000;
+  user-select: none;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  height: 100dvh;
+  width: 100vw;
+  width: 100dvw;
+  z-index: -1;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 200ms ease-out height, 200ms ease-out width;
+}
+.transition_cover {
+  background: #000;
+  position: fixed;
+  top: calc(100vh / 2);
+  bottom: calc(100vh / 2);
+  left: calc(100vw / 2);
+  right: calc(100vw / 2);
+  border: #444 2px solid;
+  z-index: 65535;
+}
+body > #version {
+  position: fixed;
+  bottom: 1px;
+  right: 2px;
+  z-index: 65536;
+  color: #ffffff5f;
+  font-family: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", Oxygen,
+    Ubuntu, system-ui, "Conaolas", monospace;
+  user-select: none;
+  transition: 50ms ease-out color;
+  font-size: 16px;
+}
+body > #version:hover {
+  color: #fff;
+}
+#content > .tiktok:not(:disabled):hover {
+  background: linear-gradient(to bottom left, #00f2ea, #ff0050);
+  box-shadow: 2px 2px 20px rgba(0, 242, 234, 0.314),
+    -2px -2px 20px rgba(255, 0, 80, 0.314);
+}
