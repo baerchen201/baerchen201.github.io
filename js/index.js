@@ -39,8 +39,10 @@ window.addEventListener("load", () => {
                 fill: "forwards",
             });
             anim.onfinish = () => {
-                if (btn.hasAttribute("data-href"))
+                if (btn.hasAttribute("data-href")) {
                     location.href = btn.getAttribute("data-href");
+                    setTimeout(location.reload, 500);
+                }
                 else
                     location.reload();
             };
@@ -49,6 +51,7 @@ window.addEventListener("load", () => {
     const TITLE = document.title;
     const CHARS = "abcdefghijklmnopqrstuvwxyz1234567890#+~*?!\"'\\/%[]{}$ .,-_<>|".split("");
     let title_effect_interval = undefined;
+    let kickstart = false;
     function title_effect_frame() {
         let t = document.title.split("");
         let i = Math.floor(Math.random() * t.length);
@@ -68,7 +71,8 @@ window.addEventListener("load", () => {
     window.addEventListener("blur", stop_title_effect);
     window.addEventListener("focus", start_title_effect);
     window.addEventListener("mousemove", () => {
-        if (!title_effect_interval)
+        if (!kickstart)
             start_title_effect();
+        kickstart = true;
     });
 });

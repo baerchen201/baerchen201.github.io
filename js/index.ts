@@ -43,9 +43,10 @@ window.addEventListener("load", () => {
         }
       );
       anim.onfinish = () => {
-        if (btn.hasAttribute("data-href"))
+        if (btn.hasAttribute("data-href")) {
           location.href = btn.getAttribute("data-href")!;
-        else location.reload();
+          setTimeout(location.reload, 500);
+        } else location.reload();
       };
     });
   }
@@ -54,6 +55,7 @@ window.addEventListener("load", () => {
   const CHARS: string[] =
     "abcdefghijklmnopqrstuvwxyz1234567890#+~*?!\"'\\/%[]{}$ .,-_<>|".split("");
   let title_effect_interval: number | undefined = undefined;
+  let kickstart = false;
   function title_effect_frame() {
     let t: string[] = document.title.split("");
     let i: number = Math.floor(Math.random() * t.length);
@@ -74,6 +76,7 @@ window.addEventListener("load", () => {
   window.addEventListener("blur", stop_title_effect);
   window.addEventListener("focus", start_title_effect);
   window.addEventListener("mousemove", () => {
-    if (!title_effect_interval) start_title_effect();
+    if (!kickstart) start_title_effect();
+    kickstart = true;
   });
 });

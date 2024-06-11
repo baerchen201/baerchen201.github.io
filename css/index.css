@@ -57,32 +57,33 @@ body > #content {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: none;
+  position: relative;
   gap: 8px;
+  overflow: hidden;
 
   padding: 12.5px 30px;
   border: 0;
   border-radius: 100px;
-  background-color: rgb(var(--color));
+  background: rgb(var(--color));
   color: rgb(var(--text-color));
   font-weight: Bold;
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
   cursor: pointer;
-  z-index: 0;
+  z-index: 1;
 }
 #content > button:not(:disabled):hover {
-  background-color: rgb(var(--hover-color));
+  background: rgb(var(--hover-color));
   box-shadow: 0 0 20px rgba(var(--hover-color), 0.314);
   transform: scale(1.1);
   z-index: 2;
 }
 #content > button:disabled {
-  background-color: rgb(var(--disabled-color));
+  background: rgb(var(--disabled-color));
   cursor: default;
 }
 _ > #content > button:active {
-  background-color: #3d94cf;
+  background: #3d94cf;
   transition: all 0.25s;
   -webkit-transition: all 0.25s;
   box-shadow: none;
@@ -139,7 +140,21 @@ body > #version:hover {
   color: #fff;
 }
 #content > .tiktok:not(:disabled):hover {
-  background: linear-gradient(to bottom left, #00f2ea, #ff0050);
   box-shadow: 2px 2px 20px rgba(0, 242, 234, 0.314),
     -2px -2px 20px rgba(255, 0, 80, 0.314);
+}
+#content > .tiktok::before {
+  background: linear-gradient(to bottom left, #00f2ea, #ff0050);
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  content: "";
+  transition: 500ms opacity;
+}
+#content > .tiktok:not(:disabled):hover::before {
+  opacity: 1;
 }
