@@ -1,5 +1,5 @@
 "use strict";
-const VERSION = "v1.1";
+const VERSION = "v1.2";
 /*
     baer1 website
     Copyright (C) 2024  baer1
@@ -12,7 +12,7 @@ const VERSION = "v1.1";
     A copy of the GNU General Public License should be hosted along with
     this website (LICENSE). If not, see <https://www.gnu.org/licenses/>.
 
-    videocreator@outlook.de
+    baer1f@outlook.com
 */
 window.addEventListener("load", () => {
     let s = document.createElement("style");

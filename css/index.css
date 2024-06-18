@@ -1,5 +1,5 @@
 body > #version::before {
-  content: "CSS v1.1";
+  content: "CSS v1.2";
 }
 /*
     baer1 website
@@ -13,7 +13,7 @@ body > #version::before {
     A copy of the GNU General Public License should be hosted along with
     this website (LICENSE). If not, see <https://www.gnu.org/licenses/>.
 
-    videocreator@outlook.de
+    baer1f@outlook.com
 */
 
 body {
@@ -36,6 +36,8 @@ body > #content {
 
   grid-auto-rows: 1fr;
   grid-template-areas: "title title";
+
+  position: relative;
 }
 #content > div {
   grid-area: title;
@@ -163,4 +165,16 @@ body > #version:hover {
 }
 #content > .tiktok:not(:disabled):hover::before {
   opacity: 1;
+}
+
+#content > .update {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  bottom: 3px;
+  font-size: 1em;
+  font-family: monospace;
+}
+#content > .update::before {
+  content: "Last updated on ";
 }
