@@ -1,5 +1,5 @@
 body > #version::before {
-  content: "CSS v1.2";
+  content: "CSS v1.3";
 }
 /*
     baer1 website
@@ -177,4 +177,55 @@ body > #version:hover {
 }
 #content > .update::before {
   content: "Last updated on ";
+}
+
+#version > #vpopup {
+  position: absolute;
+  top: -3em;
+  animation: hide 500ms ease-out 0s 1 normal forwards;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 300ms;
+  font-size: 14px;
+  width: 150%;
+  border-top-left-radius: 18px;
+  border-bottom-left-radius: 18px;
+  border: 3px solid #333;
+  right: 0;
+  height: 38px;
+  text-align: center;
+  background: #ccc;
+  transform: translateY(-2px);
+}
+
+#version:hover > #vpopup {
+  animation: show 250ms ease-out 0s 1 normal forwards;
+  pointer-events: initial;
+  opacity: 1;
+}
+
+@keyframes hide {
+  0% {
+    pointer-events: initial;
+    opacity: 1;
+  }
+  50% {
+    pointer-events: none;
+    opacity: 1;
+  }
+  100% {
+    pointer-events: none;
+    opacity: 0;
+  }
+}
+
+@keyframes show {
+  from {
+    pointer-events: initial;
+    opacity: 0;
+  }
+  to {
+    pointer-events: all;
+    opacity: 1;
+  }
 }
