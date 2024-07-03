@@ -1,5 +1,5 @@
 "use strict";
-const VERSION = "v1.2-0.2";
+const VERSION = "v1.3";
 /*
     baer1 website
     Copyright (C) 2024  baer1
@@ -26,32 +26,7 @@ window.addEventListener("load", () => {
     for (let i = 0; i < buttons.length; i++) {
         const btn = buttons[i];
         btn.addEventListener("click", (e) => {
-            document.body.style.pointerEvents = "none";
-            document.body.style.overflow = "hidden";
-            let cover = document.createElement("div");
-            cover.classList.add("transition_cover");
-            document.body.appendChild(cover);
-            let anim = cover.animate([
-                {
-                    top: `${e.clientY}px`,
-                    left: `${e.clientX}px`,
-                    bottom: `${window.innerHeight - e.clientY}px`,
-                    right: `${window.innerWidth - e.clientX}px`,
-                },
-                { top: "-2px", bottom: "-2px", left: "-2px", right: "-2px" },
-            ], {
-                duration: 750,
-                easing: "ease-out",
-                fill: "forwards",
-            });
-            anim.onfinish = () => {
-                if (btn.hasAttribute("data-href")) {
-                    location.href = btn.getAttribute("data-href");
-                    setTimeout(location.reload, 500);
-                }
-                else
-                    location.reload();
-            };
+            transition(btn.getAttribute("data-href"), btn.innerText);
         });
     }
     const TITLE = document.title;
@@ -81,3 +56,63 @@ window.addEventListener("load", () => {
         return true;
     });
 });
+function transition(url, displayname) {
+    if (document.body.getAttribute("transition-state"))
+        return false;
+    document.body.setAttribute("transition-state", "");
+    let loader_node = document.getElementById("transition-loader"), continue_node = document.getElementById("transition-continue"), return_node = document.getElementById("transition-return");
+    let preloader = document.createElement("iframe");
+    [document.body, loader_node, continue_node, return_node].forEach((e) => {
+        e.classList.add("transition");
+    });
+    loader_node.childNodes.forEach((e_node) => {
+        let e = e_node;
+        e.onanimationiteration = () => {
+            if (preloader.hasAttribute("transition-finished")) {
+                e.classList.add("transition-finished-anim");
+                loader_node.onanimationiteration = null;
+            }
+        };
+    });
+    continue_node.href = url;
+    if (!displayname) {
+        continue_node.innerText = new URL(url).hostname;
+    }
+    else {
+        continue_node.innerHTML = displayname;
+    }
+    preloader.src = url;
+    preloader.addEventListener("load", () => {
+        preloader.setAttribute("transition-finished", "");
+        [loader_node, continue_node, return_node].forEach((e) => {
+            e.classList.add("transition-finished");
+        });
+        setTimeout(() => {
+            document.body.removeAttribute("transition-state");
+            location.href = url;
+        }, 750);
+    });
+    preloader.className = "preloader";
+    document.body.appendChild(preloader);
+}
+function cancel_transition(e) {
+    if (document.body.hasAttribute("transition-state"))
+        return false;
+    e === null || e === void 0 ? void 0 : e.preventDefault();
+    let loader_node = document.getElementById("transition-loader");
+    [
+        document.body,
+        loader_node,
+        document.getElementById("transition-continue"),
+        document.getElementById("transition-return"),
+    ].forEach((e) => {
+        e.classList.remove("transition");
+    });
+    loader_node.childNodes.forEach((e_node) => {
+        let e = e_node;
+        e.onanimationiteration = null;
+        e.classList.remove("transition-finished-anim");
+    });
+    loader_node.classList.remove("transition-finished");
+    document.body.removeAttribute("transition-state");
+}

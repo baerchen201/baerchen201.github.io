@@ -1,5 +1,5 @@
 body > #version::before {
-  content: "CSS v1.2";
+  content: "CSS v1.3";
 }
 /*
     baer1 website
@@ -119,21 +119,11 @@ _ > #content > button:active {
   align-items: center;
   transition: 200ms ease-out height, 200ms ease-out width;
 }
-.transition_cover {
-  background: #000;
-  position: fixed;
-  top: calc(100vh / 2);
-  bottom: calc(100vh / 2);
-  left: calc(100vw / 2);
-  right: calc(100vw / 2);
-  border: #444 2px solid;
-  z-index: 65535;
-}
 body > #version {
   position: fixed;
   bottom: 1px;
   right: 2px;
-  z-index: 65536;
+  z-index: 2147483647;
   color: #ffffff5f;
   font-family: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", Oxygen,
     Ubuntu, system-ui, "Conaolas", monospace;
@@ -177,4 +167,149 @@ body > #version:hover {
 }
 #content > .update::before {
   content: "Last updated on ";
+}
+
+/*
+  Transition loading indicator
+  https://uiverse.io/mrpumps31232/strange-dragonfly-94
+  Highly modified
+*/
+
+.loading-wave {
+  width: 300px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  position: fixed;
+  opacity: 0;
+  z-index: 65536;
+  pointer-events: none;
+}
+
+.loading-wave.transition {
+  transition: 1s ease-in-out opacity;
+  opacity: 1;
+}
+
+.loading-bar {
+  width: 20px;
+  height: 10px;
+  margin: 0 5px;
+  background-color: #3498db;
+  border-radius: 5px;
+  animation: _ 1s ease-in-out infinite;
+}
+
+.loading-wave.transition > .loading-bar {
+  animation-name: loading-wave-animation;
+}
+
+.loading-wave.transition-finished > .loading-bar {
+  background-color: #00b86b;
+}
+.loading-wave > .loading-bar.transition-finished-anim {
+  animation-name: transition-finished-animation;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-duration: 0.5s;
+}
+
+.loading-bar:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.loading-bar:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.loading-bar:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+@keyframes loading-wave-animation {
+  0% {
+    height: 10px;
+  }
+
+  50% {
+    height: 50px;
+  }
+
+  100% {
+    height: 10px;
+  }
+}
+@keyframes transition-finished-animation {
+  0% {
+    height: 10px;
+  }
+
+  100% {
+    height: 50px;
+  }
+}
+
+body.transition {
+  overflow: hidden;
+  user-select: none;
+}
+
+body.transition::after {
+  content: "";
+  position: fixed;
+  animation: fade-out-overlay-animation 1s ease-in-out 1 forwards;
+  box-shadow: 0 0 100px 100px #000000;
+  background-color: #000000;
+  border-radius: 50%;
+  z-index: 65535;
+  width: 0;
+  height: 0;
+}
+
+@keyframes fade-out-overlay-animation {
+  100% {
+    width: 100vw;
+    height: 100vh;
+  }
+}
+
+#transition-return,
+#transition-continue {
+  height: 40px;
+  width: fit-content;
+  position: fixed;
+  z-index: 65537;
+  color: inherit;
+  text-decoration: none;
+  pointer-events: none;
+  top: 50px;
+  opacity: 0;
+}
+
+#transition-return.transition,
+#transition-continue.transition {
+  pointer-events: initial;
+  transition: 2s cubic-bezier(1, 0, 1, -0.09) opacity;
+  opacity: 1;
+}
+
+#transition-return {
+  left: 0;
+}
+#transition-continue {
+  right: 0;
+}
+#transition-continue::before {
+  content: "Continue to ";
+}
+
+body > .preloader {
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+  height: 0;
+  width: 0;
+  position: fixed;
 }

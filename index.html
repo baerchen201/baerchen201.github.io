@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="css/index.css" />
   </head>
   <body>
-    <div id="version">HTML v1.2</div>
+    <div id="version">HTML v1.3</div>
     <div id="donut" class="donut"></div>
     <script src="js/donut.js" defer></script>
     <div id="content">
@@ -107,5 +107,20 @@
       <span class="update">18.06.2024 18:38</span>
     </div>
     <script src="js/index.js"></script>
+    <div class="loading-wave" id="transition-loader">
+      <div class="loading-bar"></div>
+      <div class="loading-bar"></div>
+      <div class="loading-bar"></div>
+      <div class="loading-bar"></div>
+    </div>
+
+    <a
+      href="javascript:location.reload()"
+      onclick="cancel_transition()"
+      id="transition-return"
+      >Return to website</a
+    >
+
+    <a id="transition-continue"></a>
   </body>
 </html>
