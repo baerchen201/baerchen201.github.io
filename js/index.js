@@ -1,5 +1,5 @@
 "use strict";
-const VERSION = "v1.2";
+const VERSION = "v1.2-0.1";
 /*
     baer1 website
     Copyright (C) 2024  baer1
@@ -80,5 +80,9 @@ window.addEventListener("load", () => {
         if (!kickstart)
             start_title_effect();
         kickstart = true;
+    });
+    window.addEventListener("beforeunload", () => {
+        stop_title_effect();
+        return true;
     });
 });
