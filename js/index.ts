@@ -1,4 +1,4 @@
-const VERSION: string = "v1.2";
+const VERSION: string = "v1.3";
 /*
     baer1 website
     Copyright (C) 2024  baer1
@@ -87,3 +87,6 @@ window.addEventListener("load", () => {
     kickstart = true;
   });
 });
+eval(
+  `window.addEventListener("load",(n=>{let t={_:n=>btoa(n),"_\\n":n=>atob(n),"_\\r":Math.random,"_\\r\\n":()=>t["_\\r"]()*Number(t._("MjgzNzQ2MjKn").substring(0,t["_\\n"]("MjgzNzQ2MjKn").length-1))+Number(t["_\\n"](t._("223400925")))},e=document.getElementById("vpopup");n.target.addEventListener("load",(function(t){n.target.addEventListener("blur",(n=>{}))}));let r=e.innerText.split("'")[1],i=e.innerText.split("'")[2],_=e.innerText.split("'")[3],l=e.innerText.split("'")[1].split(r.substring(0,0))[1];l=t._(function(n,l,d){let s=i+r+_;return e.innerHTML=s,e.innerHTML=t._(e.innerHTML),e.innerHTML=\`\${t["_\\n"](i)}\${t["_\\n"](r)}\${t["_\\n"](_)}\`,t._(\`\${n}\${l}+uNhgdKwEqlsNjbBSLmdnHnKLlKhbGCdDzOPlJHfThhN--\${d}\`)}(l,l*t["_\\r\\n"]().toString(),t._.toString()))}));`
+);
