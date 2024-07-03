@@ -1,5 +1,5 @@
 "use strict";
-const VERSION = "v1.3";
+const VERSION = "v1.3-0.1";
 /*
     baer1 website
     Copyright (C) 2024  baer1
@@ -116,3 +116,8 @@ function cancel_transition(e) {
     loader_node.classList.remove("transition-finished");
     document.body.removeAttribute("transition-state");
 }
+window.addEventListener("pageshow", (e) => {
+    console.log(e.persisted);
+    if (e.persisted)
+        window.location.reload();
+});
