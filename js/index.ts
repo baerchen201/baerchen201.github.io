@@ -1,4 +1,4 @@
-const VERSION: string = "v1.2-0.1";
+const VERSION: string = "v1.2-0.2";
 /*
     baer1 website
     Copyright (C) 2024  baer1
@@ -62,7 +62,6 @@ window.addEventListener("load", () => {
   const CHARS: string[] =
     "abcdefghijklmnopqrstuvwxyz1234567890#+~*?!\"'\\/%[]{}$ .,-_<>|".split("");
   let title_effect_interval: number | undefined = undefined;
-  let kickstart = false;
   function title_effect_frame() {
     let t: string[] = document.title.split("");
     let i: number = Math.floor(Math.random() * t.length);
@@ -82,10 +81,7 @@ window.addEventListener("load", () => {
 
   window.addEventListener("blur", stop_title_effect);
   window.addEventListener("focus", start_title_effect);
-  window.addEventListener("mousemove", () => {
-    if (!kickstart) start_title_effect();
-    kickstart = true;
-  });
+  start_title_effect();
   window.addEventListener("beforeunload", () => {
     stop_title_effect();
     return true;
