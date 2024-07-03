@@ -1,5 +1,5 @@
 body > #version::before {
-  content: "CSS v1.3";
+  content: "CSS v1.3-0.1";
 }
 /*
     baer1 website
@@ -277,6 +277,7 @@ body.transition::after {
 
 #transition-return,
 #transition-continue {
+  --side-distance: 8px;
   height: 40px;
   width: fit-content;
   position: fixed;
@@ -296,10 +297,10 @@ body.transition::after {
 }
 
 #transition-return {
-  left: 0;
+  left: var(--side-distance);
 }
 #transition-continue {
-  right: 0;
+  right: var(--side-distance);
 }
 #transition-continue::before {
   content: "Continue to ";
