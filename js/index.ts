@@ -1,4 +1,4 @@
-const VERSION: string = "v1.3-0.1";
+const VERSION: string = "v1.3-0.2";
 /*
     baer1 website
     Copyright (C) 2024  baer1
@@ -134,6 +134,5 @@ function cancel_transition(e?: Event) {
 }
 
 window.addEventListener("pageshow", (e: PageTransitionEvent) => {
-  console.log(e.persisted);
   if (e.persisted) window.location.reload();
 });
