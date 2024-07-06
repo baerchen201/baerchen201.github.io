@@ -17,8 +17,8 @@ const VERSION = "v2.0";
 window.addEventListener("load", () => {
     let s = document.createElement("style");
     document.head.appendChild(s);
-    s.sheet.insertRule(`body>#version::after{content: "Script ${VERSION}"}`);
+    s.sheet.insertRule(`#version::after{content: "Script ${VERSION}"}`);
 });
 window.addEventListener("load", () => {
-    // New website code here
+    // No new website scripts yet
 });
