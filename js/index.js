@@ -1,5 +1,4 @@
-"use strict";
-const VERSION = "v2.0";
+var VERSION = "v2.0";
 /*
     baer1 website
     Copyright (C) 2024  baer1
@@ -14,11 +13,11 @@ const VERSION = "v2.0";
 
     baer1f@outlook.com
 */
-window.addEventListener("load", () => {
-    let s = document.createElement("style");
+window.addEventListener("load", function () {
+    var s = document.createElement("style");
     document.head.appendChild(s);
-    s.sheet.insertRule(`#version::after{content: "Script ${VERSION}"}`);
+    s.sheet.insertRule("#version::after{content: \"Script ".concat(VERSION, "\"}"));
 });
-window.addEventListener("load", () => {
+window.addEventListener("load", function () {
     // No new website scripts yet
 });
