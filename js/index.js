@@ -161,6 +161,7 @@ window.addEventListener("load", function () {
                 break;
         }
     }
+    return;
     get_steam_profile().then(function (r) { return __awaiter(void 0, void 0, void 0, function () {
         var json;
         return __generator(this, function (_a) {
@@ -176,4 +177,6 @@ window.addEventListener("load", function () {
             }
         });
     }); });
+    // add widgets later https://community.chrono.gg/t/what-are-your-all-time-favorite-indie-games-on-steam/15004/2
+    // https://stackoverflow.com/a/69512412/25675276
 });

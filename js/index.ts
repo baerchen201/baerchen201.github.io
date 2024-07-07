@@ -237,6 +237,9 @@ window.addEventListener("load", () => {
         break;
     }
   }
+
+  return;
+
   get_steam_profile().then(async (r: Response) => {
     if (!r.ok) set_steam_status(null);
     let json: STEAM_PROFILE_RAW = await r.json();

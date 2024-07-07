@@ -53,6 +53,15 @@
         <div id="steam-profile">
           <img src="/img/steam_default.jpg" alt="Default profile picture" />
         </div>
+        <button onclick="set_steam_status(null, STEAM_DEFAULTS)">null</button
+        ><button onclick="set_steam_status(0, STEAM_DEFAULTS)">0</button
+        ><button onclick="set_steam_status(1, STEAM_DEFAULTS)">1</button
+        ><button onclick="set_steam_status(2, STEAM_DEFAULTS)">2</button
+        ><button
+          onclick="set_steam_status({name: 'Test Game', 'url': 'https:\/\/store.steampowered.com'}, STEAM_DEFAULTS)"
+        >
+          Game
+        </button>
       </div>
     </div>
     <script src="js/index.js"></script>
