@@ -17,6 +17,9 @@
 */
 
 /* Base CSS (for the entire website and its core elements, only edit if you know exactly what you're doing) */
+* {
+  scrollbar-width: none;
+}
 body {
   display: flex;
   height: 100vh;
@@ -63,6 +66,10 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
+  position: sticky;
+  top: 0;
+  z-index: 65534;
+  background: #000000a0;
 }
 header > nav {
   display: flex;
@@ -73,7 +80,7 @@ header > nav {
   min-height: var(--content-height);
   width: 100vw;
   position: absolute;
-  bottom: 0;
+  top: var(--header-height);
 }
 
 /* Additional CSS (should not be edited)*/
@@ -107,6 +114,18 @@ header > nav {
   width: fit-content;
   margin: 0 10px;
 }
+#steam-card::before {
+  content: "";
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 
 /* Custom CSS (if you plan to copy my website, this is what should edit) */
 body {
@@ -127,4 +146,9 @@ header a:active {
 _ header a:active {
   /* Code does not work as expected, will be recycled later. */
   color: #aaa;
+}
+#steam-card::before {
+  /* Credit to https://chaoti.csignal.org/steam_wallpaper/ */
+  background-image: url(/img/Steam_Moon_1080p.png);
+  filter: brightness(0.6) blur(3px);
 }
