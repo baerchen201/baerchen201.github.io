@@ -242,4 +242,6 @@ window.addEventListener("load", () => {
     let json: STEAM_PROFILE_RAW = await r.json();
     set_steam_status(json.response.players[0]);
   });
+  // add widgets later https://community.chrono.gg/t/what-are-your-all-time-favorite-indie-games-on-steam/15004/2
+  // https://stackoverflow.com/a/69512412/25675276
 });
