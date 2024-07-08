@@ -166,6 +166,7 @@ window.addEventListener("load", function () {
                 var game_link = document.createElement("a");
                 game_link.href = "https://store.steampowered.com/app/".concat(status.id);
                 game_link.innerText = status.name;
+                game_link.target = "_blank";
                 steam_profile_nodes.status.appendChild(game_link);
                 var game_widget = document.createElement("iframe");
                 game_widget.src = "https://store.steampowered.com/widget/".concat(status.id);

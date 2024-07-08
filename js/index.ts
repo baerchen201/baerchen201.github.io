@@ -178,6 +178,7 @@ window.addEventListener("load", () => {
         let game_link: HTMLAnchorElement = document.createElement("a");
         game_link.href = `https://store.steampowered.com/app/${status.id}`;
         game_link.innerText = status.name;
+        game_link.target = "_blank";
         steam_profile_nodes.status.appendChild(game_link);
         let game_widget: HTMLIFrameElement = document.createElement("iframe");
         game_widget.src = `https://store.steampowered.com/widget/${status.id}`;
