@@ -318,16 +318,22 @@ window.addEventListener("load", () => {
     return true;
   }
 
-  let load_steam_profile_interval = setInterval(() => {
+  let steam_kickstart_function = () => {
     if (update_steam_profile()) {
       console.log("Steam profile loaded");
-      clearInterval(load_steam_profile_interval);
       setInterval(() => {
         if (document.hasFocus()) update_steam_profile(true);
         else document.body.setAttribute("update-steam-profile", "");
       }, 300000);
-    }
-  }, 500);
+    } else
+      setTimeout(
+        steam_kickstart_function,
+        STEAM_UPDATE_RATE_LIMIT -
+          (Date.now() - Number(sessionStorage.getItem("update-steam-time"))) +
+          500
+      );
+  };
+  steam_kickstart_function();
 
   window.addEventListener("focus", () => {
     if (!document.body.hasAttribute("update-steam-profile")) return;
