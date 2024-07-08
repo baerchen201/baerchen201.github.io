@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,7 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+var _this = this;
 var VERSION = "v2.0";
 /*
     baer1 website
@@ -116,29 +115,6 @@ var STEAM_EXAMPLE_RESPONSES = [
         },
     },
 ];
-function create_steam_game_node(appid) {
-    return __awaiter(this, void 0, void 0, function () {
-        var response, game_info, game_node;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch("https://store.steampowered.com/api/appdetails?appids=".concat(appid))];
-                case 1:
-                    response = _a.sent();
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    game_info = (_a.sent())[appid];
-                    if (!game_info["success"])
-                        return [2 /*return*/, null];
-                    game_node = document.createElement("div");
-                    if (game_info.data.header_image)
-                        game_node.style.backgroundImage = "url(".concat(game_info.data.header_image, ")");
-                    else if (game_info.data.capsule_image)
-                        game_node.style.backgroundImage = "url(".concat(game_info.data.capsule_image, ")");
-                    return [2 /*return*/];
-            }
-        });
-    });
-}
 function get_steam_profile() {
     return fetch(STEAM_RELAY);
 }
@@ -150,19 +126,58 @@ window.addEventListener("load", function () {
         name: steam_mini_profile.getElementsByTagName("div")[1],
         status: steam_mini_profile.getElementsByTagName("div")[2],
     };
-    function set_steam_status(status, profile) {
+    window.set_steam_status = function set_steam_status(status, profile) {
         if (profile === void 0) { profile = STEAM_DEFAULTS; }
         switch (status) {
             case null:
                 steam_profile_nodes.picture.src = profile.picture;
                 steam_profile_nodes.user.innerText = profile.user;
+                steam_profile_nodes.name.innerText = profile.name;
+                steam_profile_nodes.status.className = "steamstatus unavailable";
+                steam_profile_nodes.status.innerHTML = "";
+                break;
+            case 0:
+                steam_profile_nodes.picture.src = profile.picture;
+                steam_profile_nodes.user.innerText = profile.user;
+                steam_profile_nodes.name.innerText = profile.name;
+                steam_profile_nodes.status.className = "steamstatus offline";
+                steam_profile_nodes.status.innerHTML = "";
+                break;
+            case 1:
+                steam_profile_nodes.picture.src = profile.picture;
+                steam_profile_nodes.user.innerText = profile.user;
+                steam_profile_nodes.name.innerText = profile.name;
+                steam_profile_nodes.status.className = "steamstatus online";
+                steam_profile_nodes.status.innerHTML = "";
+                break;
+            case 2:
+                steam_profile_nodes.picture.src = profile.picture;
+                steam_profile_nodes.user.innerText = profile.user;
+                steam_profile_nodes.name.innerText = profile.name;
+                steam_profile_nodes.status.className = "steamstatus away";
+                steam_profile_nodes.status.innerHTML = "";
                 break;
             default:
+                steam_profile_nodes.picture.src = profile.picture;
+                steam_profile_nodes.user.innerText = profile.user;
+                steam_profile_nodes.name.innerText = profile.name;
+                steam_profile_nodes.status.className = "steamstatus ingame";
+                steam_profile_nodes.status.innerHTML = "";
+                var game_link = document.createElement("a");
+                game_link.href = "https://store.steampowered.com/app/".concat(status.id);
+                game_link.innerText = status.name;
+                steam_profile_nodes.status.appendChild(game_link);
+                var game_widget = document.createElement("iframe");
+                game_widget.src = "https://store.steampowered.com/widget/".concat(status.id);
+                game_widget.setAttribute("frameborder", "0");
+                game_widget.setAttribute("seamless", "seamless");
+                steam_profile_nodes.status.appendChild(game_widget);
                 break;
         }
-    }
+    };
+    window.set_steam_status(null);
     return;
-    get_steam_profile().then(function (r) { return __awaiter(void 0, void 0, void 0, function () {
+    get_steam_profile().then(function (r) { return __awaiter(_this, void 0, void 0, function () {
         var json;
         return __generator(this, function (_a) {
             switch (_a.label) {

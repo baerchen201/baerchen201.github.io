@@ -1,5 +1,3 @@
-import { deprecate } from "util";
-
 const VERSION: string = "v2.0";
 /*
     baer1 website
@@ -123,120 +121,73 @@ interface STEAM_PROFILE_RAW {
   };
 }
 
-interface STEAM_GAME_INFO {
-  success: boolean;
-  data: {
-    type: string;
-    name: string;
-    steam_appid: number;
-    required_age: number;
-    is_free: boolean;
-    dlc: number[];
-    detailed_description: string;
-    about_the_game: string;
-    short_description: string;
-    supported_languages: string;
-    reviews: string;
-    header_image: string;
-    capsule_image: string;
-    capsule_imagev5: string;
-    website: string;
-    pc_requirements: {
-      minimum: string;
-    };
-    mac_requirements: {
-      minimum: string;
-    };
-    linux_requirements: {
-      minimum: string;
-    };
-    developers: string[];
-    publishers: string[];
-    price_overview: any;
-    packages: number[];
-    package_groups: any;
-    platforms: {
-      windows: boolean;
-      mac: boolean;
-      linux: boolean;
-    };
-    categories: {
-      id: number;
-      description: string;
-    }[];
-    genres: {
-      id: string;
-      description: string;
-    }[];
-    screenshots: {
-      id: number;
-      path_thumbnail: string;
-      path_full: string;
-    }[];
-    movies: {
-      id: number;
-      name: string;
-      thumbnail: string;
-      highlight: true;
-    }[];
-    recommendations: any;
-    achievements: any;
-    release_date: {
-      coming_soon: boolean;
-      date: string;
-    };
-    support_info: any;
-    background: string;
-    background_raw: string;
-    content_descriptors: any;
-    ratings: any;
-  };
-}
-
-async function create_steam_game_node(appid: number) {
-  let response = await fetch(
-    `https://store.steampowered.com/api/appdetails?appids=${appid}`
-  );
-
-  let game_info: STEAM_GAME_INFO = (await response.json())[appid];
-  if (!game_info["success"]) return null;
-
-  let game_node: HTMLDivElement = document.createElement("div");
-  if (game_info.data.header_image)
-    game_node.style.backgroundImage = `url(${game_info.data.header_image})`;
-  else if (game_info.data.capsule_image)
-    game_node.style.backgroundImage = `url(${game_info.data.capsule_image})`;
-  /* Ok I found out how to embed steam store widgets in iframes, so there go the last 2 hours of my life. */
-}
-
 function get_steam_profile(): Promise<Response> {
   return fetch(STEAM_RELAY);
 }
 
 window.addEventListener("load", () => {
-  let steam_mini_profile: HTMLDivElement = document.getElementById(
+  let steam_mini_profile: HTMLAnchorElement = document.getElementById(
     "steam-profile"
-  ) as HTMLDivElement;
+  ) as HTMLAnchorElement;
   let steam_profile_nodes = {
     picture: steam_mini_profile.querySelector("img") as HTMLImageElement,
     user: steam_mini_profile.getElementsByTagName("div")[0],
     name: steam_mini_profile.getElementsByTagName("div")[1],
     status: steam_mini_profile.getElementsByTagName("div")[2],
   };
-  function set_steam_status(
-    status: null | 0 | 1 | 2 | { name: string; url: string },
+  window.set_steam_status = function set_steam_status(
+    status: null | 0 | 1 | 2 | { name: string; id: string },
     profile: STEAM_PROFILE = STEAM_DEFAULTS
   ) {
     switch (status) {
       case null:
         steam_profile_nodes.picture.src = profile.picture;
         steam_profile_nodes.user.innerText = profile.user;
+        steam_profile_nodes.name.innerText = profile.name;
+        steam_profile_nodes.status.className = "steamstatus unavailable";
+        steam_profile_nodes.status.innerHTML = "";
+        break;
+      case 0:
+        steam_profile_nodes.picture.src = profile.picture;
+        steam_profile_nodes.user.innerText = profile.user;
+        steam_profile_nodes.name.innerText = profile.name;
+        steam_profile_nodes.status.className = "steamstatus offline";
+        steam_profile_nodes.status.innerHTML = "";
+        break;
+      case 1:
+        steam_profile_nodes.picture.src = profile.picture;
+        steam_profile_nodes.user.innerText = profile.user;
+        steam_profile_nodes.name.innerText = profile.name;
+        steam_profile_nodes.status.className = "steamstatus online";
+        steam_profile_nodes.status.innerHTML = "";
+        break;
+      case 2:
+        steam_profile_nodes.picture.src = profile.picture;
+        steam_profile_nodes.user.innerText = profile.user;
+        steam_profile_nodes.name.innerText = profile.name;
+        steam_profile_nodes.status.className = "steamstatus away";
+        steam_profile_nodes.status.innerHTML = "";
         break;
 
       default:
+        steam_profile_nodes.picture.src = profile.picture;
+        steam_profile_nodes.user.innerText = profile.user;
+        steam_profile_nodes.name.innerText = profile.name;
+        steam_profile_nodes.status.className = "steamstatus ingame";
+        steam_profile_nodes.status.innerHTML = "";
+        let game_link: HTMLAnchorElement = document.createElement("a");
+        game_link.href = `https://store.steampowered.com/app/${status.id}`;
+        game_link.innerText = status.name;
+        steam_profile_nodes.status.appendChild(game_link);
+        let game_widget: HTMLIFrameElement = document.createElement("iframe");
+        game_widget.src = `https://store.steampowered.com/widget/${status.id}`;
+        game_widget.setAttribute("frameborder", "0");
+        game_widget.setAttribute("seamless", "seamless");
+        steam_profile_nodes.status.appendChild(game_widget);
         break;
     }
-  }
+  };
+  window.set_steam_status(null);
 
   return;
 

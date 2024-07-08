@@ -126,8 +126,55 @@ header > nav {
   left: 0;
   right: 0;
 }
+.steamstatus {
+  position: relative;
+}
+.steamstatus.unavailable {
+  color: #444;
+}
+.steamstatus.unavailable::before {
+  content: "Unknown";
+}
+.steamstatus.offline {
+  color: #898989;
+}
+.steamstatus.offline::before {
+  content: "Offline";
+}
+.steamstatus.online,
+.steamstatus.away {
+  color: #57cbde;
+}
+.steamstatus.online::before {
+  content: "Online";
+}
+.steamstatus.away {
+  opacity: 0.7;
+}
+.steamstatus.away::before {
+  content: "Away";
+}
+.steamstatus.ingame,
+.steamstatus.ingame > a {
+  color: #90ba3c;
+}
+.steamstatus.ingame::before {
+  content: "Playing ";
+}
+.steamstatus.ingame > iframe {
+  display: none;
+  position: absolute;
+  padding-left: 20px;
+  height: 190px;
+  width: 690px;
+  transform: translateY(-50%);
+}
+.steamstatus.ingame > a:hover + iframe,
+.steamstatus.ingame > iframe:hover {
+  display: initial;
+}
 
-/* Custom CSS (if you plan to copy my website, this is what should edit) */
+/* Custom CSS (if you plan to copy my website, this is what you should edit) */
 body {
   color: #fff;
   background: #000;
