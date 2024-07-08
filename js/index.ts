@@ -354,7 +354,27 @@ function browser_compatible(): string[] {
     ret.push(`Window width (${window.innerWidth}px < 480px)`);
   if (window.innerHeight < 300)
     ret.push(`Window height (${window.innerHeight}px < 300px)`);
-
+  let user_agent: UAParser = new UAParser(navigator.userAgent);
+  if (
+    !["Chrome", "Chromium", "Edge", "Firefox", "Mozilla"].includes(
+      String(user_agent.getBrowser().name)
+    )
+  )
+    ret.push(
+      `Unknown browser ("${user_agent.getBrowser().name}" ${
+        user_agent.getBrowser().version
+      })`
+    );
+  if (
+    ["Android Browser", "[Mobile] Safari", "MIUI Browser", "Safari"].includes(
+      String(user_agent.getBrowser().name)
+    )
+  )
+    ret.push(
+      `Incompatible browser ("${user_agent.getBrowser().name}" ${
+        user_agent.getBrowser().version
+      })`
+    );
   return ret;
 }
 function check_website_compatibility() {

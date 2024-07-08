@@ -308,6 +308,11 @@ function browser_compatible() {
         ret.push("Window width (".concat(window.innerWidth, "px < 480px)"));
     if (window.innerHeight < 300)
         ret.push("Window height (".concat(window.innerHeight, "px < 300px)"));
+    var user_agent = new UAParser(navigator.userAgent);
+    if (!["Chrome", "Chromium", "Edge", "Firefox", "Mozilla"].includes(String(user_agent.getBrowser().name)))
+        ret.push("Unknown browser (\"".concat(user_agent.getBrowser().name, "\" ").concat(user_agent.getBrowser().version, ")"));
+    if (["Android Browser", "[Mobile] Safari", "MIUI Browser", "Safari"].includes(String(user_agent.getBrowser().name)))
+        ret.push("Incompatible browser (\"".concat(user_agent.getBrowser().name, "\" ").concat(user_agent.getBrowser().version, ")"));
     return ret;
 }
 function check_website_compatibility() {
