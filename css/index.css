@@ -128,12 +128,17 @@ header > nav {
 }
 .steamstatus {
   position: relative;
+  grid-area: status;
 }
-.steamstatus.unavailable {
+.steamstatus.unavailable,
+.steamstatus.loading {
   color: #444;
 }
 .steamstatus.unavailable::before {
   content: "Unknown";
+}
+.steamstatus.loading::before {
+  content: "Loading...";
 }
 .steamstatus.offline {
   color: #898989;
@@ -173,6 +178,29 @@ header > nav {
 .steamstatus.ingame > iframe:hover {
   display: initial;
 }
+#steam-profile {
+  display: grid;
+  grid-template-areas: "picture user" "picture name" "picture status";
+  width: fit-content;
+  gap: 8px;
+  margin: 8px 16px;
+}
+#steam-profile > img {
+  grid-area: picture;
+  --size: 128px;
+  height: var(--size);
+  width: var(--size);
+}
+#steam-profile > img:nth-of-type(2) {
+  display: none;
+  backdrop-filter: blur(2px) brightness(0.8);
+}
+#steam-profile > div:nth-of-type(1) {
+  grid-area: user;
+}
+#steam-profile > div:nth-of-type(2) {
+  grid-area: name;
+}
 
 /* Custom CSS (if you plan to copy my website, this is what you should edit) */
 body {
@@ -190,8 +218,7 @@ header a {
 header a:active {
   color: #ddd;
 }
-_ header a:active {
-  /* Code does not work as expected, will be recycled later. */
+header > a.active {
   color: #aaa;
 }
 #steam-card::before {

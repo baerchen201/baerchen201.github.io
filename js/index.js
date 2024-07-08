@@ -121,48 +121,40 @@ function get_steam_profile() {
 window.addEventListener("load", function () {
     var steam_mini_profile = document.getElementById("steam-profile");
     var steam_profile_nodes = {
-        picture: steam_mini_profile.querySelector("img"),
+        picture: steam_mini_profile.getElementsByTagName("img")[0],
+        loading_wheel: steam_mini_profile.getElementsByTagName("img")[1],
         user: steam_mini_profile.getElementsByTagName("div")[0],
         name: steam_mini_profile.getElementsByTagName("div")[1],
         status: steam_mini_profile.getElementsByTagName("div")[2],
     };
     window.set_steam_status = function set_steam_status(status, profile) {
         if (profile === void 0) { profile = STEAM_DEFAULTS; }
+        steam_profile_nodes.loading_wheel.style.display = "";
+        steam_profile_nodes.status.className = "steamstatus";
+        steam_profile_nodes.picture.src = profile.picture;
+        steam_profile_nodes.user.innerText = profile.user;
+        steam_profile_nodes.name.innerText = profile.name;
+        steam_profile_nodes.status.innerHTML = "";
         switch (status) {
+            case undefined:
+                steam_profile_nodes.loading_wheel.style.display = "initial";
+                steam_profile_nodes.status.classList.add("loading");
+                break;
             case null:
-                steam_profile_nodes.picture.src = profile.picture;
-                steam_profile_nodes.user.innerText = profile.user;
-                steam_profile_nodes.name.innerText = profile.name;
-                steam_profile_nodes.status.className = "steamstatus unavailable";
-                steam_profile_nodes.status.innerHTML = "";
+                steam_profile_nodes.status.classList.add("unavailable");
+                steam_profile_nodes.picture.src = "/img/steam_default.jpg";
                 break;
             case 0:
-                steam_profile_nodes.picture.src = profile.picture;
-                steam_profile_nodes.user.innerText = profile.user;
-                steam_profile_nodes.name.innerText = profile.name;
-                steam_profile_nodes.status.className = "steamstatus offline";
-                steam_profile_nodes.status.innerHTML = "";
+                steam_profile_nodes.status.classList.add("offline");
                 break;
             case 1:
-                steam_profile_nodes.picture.src = profile.picture;
-                steam_profile_nodes.user.innerText = profile.user;
-                steam_profile_nodes.name.innerText = profile.name;
-                steam_profile_nodes.status.className = "steamstatus online";
-                steam_profile_nodes.status.innerHTML = "";
+                steam_profile_nodes.status.classList.add("online");
                 break;
             case 2:
-                steam_profile_nodes.picture.src = profile.picture;
-                steam_profile_nodes.user.innerText = profile.user;
-                steam_profile_nodes.name.innerText = profile.name;
-                steam_profile_nodes.status.className = "steamstatus away";
-                steam_profile_nodes.status.innerHTML = "";
+                steam_profile_nodes.status.classList.add("away");
                 break;
             default:
-                steam_profile_nodes.picture.src = profile.picture;
-                steam_profile_nodes.user.innerText = profile.user;
-                steam_profile_nodes.name.innerText = profile.name;
-                steam_profile_nodes.status.className = "steamstatus ingame";
-                steam_profile_nodes.status.innerHTML = "";
+                steam_profile_nodes.status.classList.add("ingame");
                 var game_link = document.createElement("a");
                 game_link.href = "https://store.steampowered.com/app/".concat(status.id);
                 game_link.innerText = status.name;
@@ -176,7 +168,7 @@ window.addEventListener("load", function () {
                 break;
         }
     };
-    window.set_steam_status(null);
+    window.set_steam_status(undefined);
     return;
     get_steam_profile().then(function (r) { return __awaiter(_this, void 0, void 0, function () {
         var json;

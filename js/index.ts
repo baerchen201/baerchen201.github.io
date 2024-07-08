@@ -130,51 +130,43 @@ window.addEventListener("load", () => {
     "steam-profile"
   ) as HTMLAnchorElement;
   let steam_profile_nodes = {
-    picture: steam_mini_profile.querySelector("img") as HTMLImageElement,
+    picture: steam_mini_profile.getElementsByTagName("img")[0],
+    loading_wheel: steam_mini_profile.getElementsByTagName("img")[1],
     user: steam_mini_profile.getElementsByTagName("div")[0],
     name: steam_mini_profile.getElementsByTagName("div")[1],
     status: steam_mini_profile.getElementsByTagName("div")[2],
   };
   window.set_steam_status = function set_steam_status(
-    status: null | 0 | 1 | 2 | { name: string; id: string },
+    status?: null | 0 | 1 | 2 | { name: string; id: string },
     profile: STEAM_PROFILE = STEAM_DEFAULTS
   ) {
+    steam_profile_nodes.loading_wheel.style.display = "";
+    steam_profile_nodes.status.className = "steamstatus";
+    steam_profile_nodes.picture.src = profile.picture;
+    steam_profile_nodes.user.innerText = profile.user;
+    steam_profile_nodes.name.innerText = profile.name;
+    steam_profile_nodes.status.innerHTML = "";
     switch (status) {
+      case undefined:
+        steam_profile_nodes.loading_wheel.style.display = "initial";
+        steam_profile_nodes.status.classList.add("loading");
+        break;
       case null:
-        steam_profile_nodes.picture.src = profile.picture;
-        steam_profile_nodes.user.innerText = profile.user;
-        steam_profile_nodes.name.innerText = profile.name;
-        steam_profile_nodes.status.className = "steamstatus unavailable";
-        steam_profile_nodes.status.innerHTML = "";
+        steam_profile_nodes.status.classList.add("unavailable");
+        steam_profile_nodes.picture.src = "/img/steam_default.jpg";
         break;
       case 0:
-        steam_profile_nodes.picture.src = profile.picture;
-        steam_profile_nodes.user.innerText = profile.user;
-        steam_profile_nodes.name.innerText = profile.name;
-        steam_profile_nodes.status.className = "steamstatus offline";
-        steam_profile_nodes.status.innerHTML = "";
+        steam_profile_nodes.status.classList.add("offline");
         break;
       case 1:
-        steam_profile_nodes.picture.src = profile.picture;
-        steam_profile_nodes.user.innerText = profile.user;
-        steam_profile_nodes.name.innerText = profile.name;
-        steam_profile_nodes.status.className = "steamstatus online";
-        steam_profile_nodes.status.innerHTML = "";
+        steam_profile_nodes.status.classList.add("online");
         break;
       case 2:
-        steam_profile_nodes.picture.src = profile.picture;
-        steam_profile_nodes.user.innerText = profile.user;
-        steam_profile_nodes.name.innerText = profile.name;
-        steam_profile_nodes.status.className = "steamstatus away";
-        steam_profile_nodes.status.innerHTML = "";
+        steam_profile_nodes.status.classList.add("away");
         break;
 
       default:
-        steam_profile_nodes.picture.src = profile.picture;
-        steam_profile_nodes.user.innerText = profile.user;
-        steam_profile_nodes.name.innerText = profile.name;
-        steam_profile_nodes.status.className = "steamstatus ingame";
-        steam_profile_nodes.status.innerHTML = "";
+        steam_profile_nodes.status.classList.add("ingame");
         let game_link: HTMLAnchorElement = document.createElement("a");
         game_link.href = `https://store.steampowered.com/app/${status.id}`;
         game_link.innerText = status.name;
@@ -188,7 +180,8 @@ window.addEventListener("load", () => {
         break;
     }
   };
-  window.set_steam_status(null);
+
+  window.set_steam_status(undefined);
 
   return;
 

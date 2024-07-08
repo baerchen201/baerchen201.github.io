@@ -52,15 +52,21 @@
       <div id="steam-card">
         <a id="steam-profile">
           <img src="/img/steam_default.jpg" alt="Default profile picture" />
+          <img
+            src="/img/Spinner@1x-1.2s-200px-200px.apng"
+            alt="Loading spinner"
+          />
+          <!-- thx https://loading.io/, you saved me a lot of time -->
           <div>Username</div>
           <div>Name</div>
           <div class="steamstatus unavailable"></div>
         </a>
-        <button onclick="set_steam_status(null)">Unknown</button
-        ><button onclick="set_steam_status(0)">Offline</button
-        ><button onclick="set_steam_status(1)">Online</button
-        ><button onclick="set_steam_status(2)">Away</button
-        ><button onclick="set_steam_status({name: 'Portal', id: 400})">
+        <button onclick="set_steam_status()">Loading</button>
+        <button onclick="set_steam_status(null)">Unknown</button>
+        <button onclick="set_steam_status(0)">Offline</button>
+        <button onclick="set_steam_status(1)">Online</button>
+        <button onclick="set_steam_status(2)">Away</button>
+        <button onclick="set_steam_status({name: 'Portal', id: 400})">
           Playing Portal
         </button>
       </div>
