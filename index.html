@@ -51,7 +51,7 @@
       </div>
       <div id="steam-card">
         <a id="steam-profile">
-          <img src="/img/steam_default.jpg" alt="Default profile picture" />
+          <img src="/img/steam_default.jpg" alt="User Avatar" />
           <img
             src="/img/Spinner@1x-1.2s-200px-200px.apng"
             alt="Loading spinner"
@@ -61,6 +61,12 @@
           <div>Name</div>
           <div class="steamstatus unavailable"></div>
         </a>
+        <button
+          onclick="update_steam_profile()"
+          oncontextmenu="update_steam_profile(true);return false"
+        >
+          <i>Update live profile (right click for silent mode)</i>
+        </button>
         <button onclick="set_steam_status()">Loading</button>
         <button onclick="set_steam_status(null)">Unknown</button>
         <button onclick="set_steam_status(0)">Offline</button>

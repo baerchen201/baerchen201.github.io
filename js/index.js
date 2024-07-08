@@ -34,7 +34,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
 var VERSION = "v2.0";
 /*
     baer1 website
@@ -61,7 +60,7 @@ var STEAM_RELAY = "https://still-wood-a68b.videocreator.workers.dev/", STEAM_DEF
     id: "76561199245129581",
     picture: "/me/0.png",
 };
-var STEAM_EXAMPLE_RESPONSES = [
+var _STEAM_EXAMPLE_RESPONSES = [
     {
         response: {
             players: [
@@ -114,9 +113,57 @@ var STEAM_EXAMPLE_RESPONSES = [
             ],
         },
     },
-];
+    {
+        response: {
+            players: [
+                {
+                    steamid: "76561199546162068",
+                    communityvisibilitystate: 3,
+                    profilestate: 1,
+                    personaname: "gustav_7724",
+                    profileurl: "https://steamcommunity.com/profiles/76561199546162068/",
+                    avatar: "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb.jpg",
+                    avatarmedium: "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_medium.jpg",
+                    avatarfull: "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
+                    avatarhash: "fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb",
+                    personastate: 0,
+                    realname: "Gustav",
+                    primaryclanid: "103582791429521408",
+                    timecreated: 1693221907,
+                    personastateflags: 0,
+                    loccountrycode: "DE",
+                },
+            ],
+        },
+    },
+    {
+        response: {
+            players: [
+                {
+                    steamid: "76561199546162068",
+                    communityvisibilitystate: 3,
+                    profilestate: 1,
+                    personaname: "gustav_7724",
+                    commentpermission: 2,
+                    profileurl: "https://steamcommunity.com/profiles/76561199546162068/",
+                    avatar: "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb.jpg",
+                    avatarmedium: "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_medium.jpg",
+                    avatarfull: "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
+                    avatarhash: "fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb",
+                    personastate: 0,
+                    primaryclanid: "103582791429521408",
+                    timecreated: 1693221907,
+                    personastateflags: 0,
+                },
+            ],
+        },
+    },
+]; // For development
 function get_steam_profile() {
     return fetch(STEAM_RELAY);
+}
+function get_steam_game_name(gameid) {
+    return gameid; //Placeholder for now
 }
 window.addEventListener("load", function () {
     var steam_mini_profile = document.getElementById("steam-profile");
@@ -127,11 +174,12 @@ window.addEventListener("load", function () {
         name: steam_mini_profile.getElementsByTagName("div")[1],
         status: steam_mini_profile.getElementsByTagName("div")[2],
     };
-    window.set_steam_status = function set_steam_status(status, profile) {
+    function set_steam_status(status, profile) {
         if (profile === void 0) { profile = STEAM_DEFAULTS; }
         steam_profile_nodes.loading_wheel.style.display = "";
         steam_profile_nodes.status.className = "steamstatus";
         steam_profile_nodes.picture.src = profile.picture;
+        steam_profile_nodes.picture.alt = "".concat(profile.user, "'s avatar");
         steam_profile_nodes.user.innerText = profile.user;
         steam_profile_nodes.name.innerText = profile.name;
         steam_profile_nodes.status.innerHTML = "";
@@ -143,6 +191,7 @@ window.addEventListener("load", function () {
             case null:
                 steam_profile_nodes.status.classList.add("unavailable");
                 steam_profile_nodes.picture.src = "/img/steam_default.jpg";
+                steam_profile_nodes.picture.alt = "Steam default avatar";
                 break;
             case 0:
                 steam_profile_nodes.status.classList.add("offline");
@@ -167,24 +216,73 @@ window.addEventListener("load", function () {
                 steam_profile_nodes.status.appendChild(game_widget);
                 break;
         }
-    };
-    window.set_steam_status(undefined);
-    return;
-    get_steam_profile().then(function (r) { return __awaiter(_this, void 0, void 0, function () {
-        var json;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    if (!r.ok)
-                        set_steam_status(null);
-                    return [4 /*yield*/, r.json()];
-                case 1:
-                    json = _a.sent();
-                    set_steam_status(json.response.players[0]);
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    // add widgets later https://community.chrono.gg/t/what-are-your-all-time-favorite-indie-games-on-steam/15004/2
+    }
+    function update_steam_profile(silent) {
+        var _this = this;
+        if (silent === void 0) { silent = false; }
+        if (!silent)
+            set_steam_status();
+        get_steam_profile().then(function (r) { return __awaiter(_this, void 0, void 0, function () {
+            var json, player_info, status;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!r.ok) {
+                            set_steam_status(null);
+                            return [2 /*return*/];
+                        }
+                        return [4 /*yield*/, r.json()];
+                    case 1:
+                        json = _a.sent();
+                        player_info = json.response.players[0];
+                        switch (player_info.personastate) {
+                            case 0:
+                                status = 0;
+                                break;
+                            case 1:
+                                status = 1;
+                                break;
+                            case 3:
+                                status = 2;
+                                break;
+                            default:
+                                status = null;
+                                break;
+                        }
+                        if ("gameid" in player_info)
+                            status = {
+                                id: player_info.gameid,
+                                name: "gameextrainfo" in player_info
+                                    ? player_info.gameextrainfo
+                                    : get_steam_game_name(player_info.gameid),
+                            };
+                        set_steam_status(status, {
+                            id: player_info.steamid,
+                            name: "realname" in player_info
+                                ? player_info.realname
+                                : STEAM_DEFAULTS.name,
+                            picture: player_info.avatarfull,
+                            user: player_info.personaname,
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+    }
+    update_steam_profile();
+    setInterval(function () {
+        if (document.hasFocus())
+            update_steam_profile(true);
+        else
+            document.body.setAttribute("update-steam-profile", "");
+    }, 300000);
+    window.addEventListener("focus", function () {
+        if (!document.body.hasAttribute("update-steam-profile"))
+            return;
+        document.body.removeAttribute("update-steam-profile");
+        update_steam_profile(true);
+    });
+    window.set_steam_status = set_steam_status; // Development thing, so the test buttons work
+    window.update_steam_profile = update_steam_profile;
     // https://stackoverflow.com/a/69512412/25675276
 });

@@ -167,16 +167,22 @@ header > nav {
   content: "Playing ";
 }
 .steamstatus.ingame > iframe {
-  display: none;
+  pointer-events: none;
+  user-select: none;
   position: absolute;
   padding-left: 20px;
   height: 190px;
   width: 690px;
   transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
 }
 .steamstatus.ingame > a:hover + iframe,
 .steamstatus.ingame > iframe:hover {
+  pointer-events: initial;
+  user-select: initial;
   display: initial;
+  opacity: 1;
 }
 #steam-profile {
   display: grid;
