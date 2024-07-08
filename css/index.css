@@ -129,44 +129,47 @@ header > nav {
 .steamstatus {
   position: relative;
   grid-area: status;
+  color: var(--status-color);
 }
-.steamstatus.unavailable,
-.steamstatus.loading {
-  color: #444;
+.steamstatus > a {
+  color: var(--status-color);
 }
-.steamstatus.unavailable::before {
+.unavailable,
+.loading {
+  --status-color: #444;
+}
+.unavailable > .steamstatus::before {
   content: "Unknown";
 }
-.steamstatus.loading::before {
+.loading > .steamstatus::before {
   content: "Loading...";
 }
-.steamstatus.offline {
-  color: #898989;
+.offline {
+  --status-color: #898989;
 }
-.steamstatus.offline::before {
+.offline > .steamstatus::before {
   content: "Offline";
 }
-.steamstatus.online,
-.steamstatus.away {
-  color: #57cbde;
+.online,
+.away {
+  --status-color: #57cbde;
 }
-.steamstatus.online::before {
+.online > .steamstatus::before {
   content: "Online";
 }
-.steamstatus.away {
+.away > .steamstatus {
   opacity: 0.7;
 }
-.steamstatus.away::before {
+.away > .steamstatus::before {
   content: "Away";
 }
-.steamstatus.ingame,
-.steamstatus.ingame > a {
-  color: #90ba3c;
+.ingame {
+  --status-color: #90ba3c;
 }
-.steamstatus.ingame::before {
+.ingame > .steamstatus::before {
   content: "Playing ";
 }
-.steamstatus.ingame > iframe {
+.ingame > .steamstatus > iframe {
   pointer-events: none;
   user-select: none;
   position: absolute;
@@ -177,8 +180,8 @@ header > nav {
   opacity: 0;
   transition: opacity 300ms ease-in-out;
 }
-.steamstatus.ingame > a:hover + iframe,
-.steamstatus.ingame > iframe:hover {
+.ingame > .steamstatus > a:hover + iframe,
+.ingame > .steamstatus > iframe:hover {
   pointer-events: initial;
   user-select: initial;
   display: initial;
@@ -190,6 +193,7 @@ header > nav {
   width: fit-content;
   gap: 8px;
   margin: 8px 16px;
+  --picture-border-size: 2px;
 }
 #steam-profile > img {
   grid-area: picture;
@@ -197,9 +201,14 @@ header > nav {
   height: var(--size);
   width: var(--size);
 }
+#steam-profile > img:nth-of-type(1) {
+  border: var(--picture-border-size) solid var(--status-color);
+}
 #steam-profile > img:nth-of-type(2) {
   display: none;
   backdrop-filter: blur(2px) brightness(0.8);
+  position: absolute;
+  transform: translate(var(--picture-border-size), var(--picture-border-size));
 }
 #steam-profile > div:nth-of-type(1) {
   grid-area: user;

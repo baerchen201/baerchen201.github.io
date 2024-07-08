@@ -177,7 +177,7 @@ window.addEventListener("load", function () {
     function set_steam_status(status, profile) {
         if (profile === void 0) { profile = STEAM_DEFAULTS; }
         steam_profile_nodes.loading_wheel.style.display = "";
-        steam_profile_nodes.status.className = "steamstatus";
+        steam_mini_profile.className = "";
         steam_profile_nodes.picture.src = profile.picture;
         steam_profile_nodes.picture.alt = "".concat(profile.user, "'s avatar");
         steam_profile_nodes.user.innerText = profile.user;
@@ -186,24 +186,24 @@ window.addEventListener("load", function () {
         switch (status) {
             case undefined:
                 steam_profile_nodes.loading_wheel.style.display = "initial";
-                steam_profile_nodes.status.classList.add("loading");
+                steam_mini_profile.classList.add("loading");
                 break;
             case null:
-                steam_profile_nodes.status.classList.add("unavailable");
+                steam_mini_profile.classList.add("unavailable");
                 steam_profile_nodes.picture.src = "/img/steam_default.jpg";
                 steam_profile_nodes.picture.alt = "Steam default avatar";
                 break;
             case 0:
-                steam_profile_nodes.status.classList.add("offline");
+                steam_mini_profile.classList.add("offline");
                 break;
             case 1:
-                steam_profile_nodes.status.classList.add("online");
+                steam_mini_profile.classList.add("online");
                 break;
             case 2:
-                steam_profile_nodes.status.classList.add("away");
+                steam_mini_profile.classList.add("away");
                 break;
             default:
-                steam_profile_nodes.status.classList.add("ingame");
+                steam_mini_profile.classList.add("ingame");
                 var game_link = document.createElement("a");
                 game_link.href = "https://store.steampowered.com/app/".concat(status.id);
                 game_link.innerText = status.name;
