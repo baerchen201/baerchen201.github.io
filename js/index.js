@@ -301,3 +301,25 @@ window.addEventListener("load", function () {
     window.update_steam_profile = update_steam_profile;
     // https://stackoverflow.com/a/69512412/25675276
 });
+function browser_compatible() {
+    var ret = [];
+    // Add compatibility checks here
+    if (window.innerWidth < 480)
+        ret.push("Window width (".concat(window.innerWidth, "px < 480px)"));
+    if (window.innerHeight < 300)
+        ret.push("Window height (".concat(window.innerHeight, "px < 300px)"));
+    return ret;
+}
+function check_website_compatibility() {
+    var is_browser_compatible = browser_compatible();
+    console.log("Browser compatibility check result:", is_browser_compatible);
+    if (is_browser_compatible.length)
+        if (!sessionStorage.getItem("hide-compatibility-warning")) {
+            if (confirm("Warning!\nThis website may not run correctly on your browser or device:\n" +
+                is_browser_compatible.join("\n") +
+                "\n\nOK: Hide, don't show again for this session\nCancel: Hide"))
+                sessionStorage.setItem("hide-compatibility-warning", "true");
+        }
+}
+window.addEventListener("load", check_website_compatibility);
+window.addEventListener("resize", check_website_compatibility);
