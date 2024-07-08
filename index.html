@@ -62,8 +62,8 @@
           <div class="steamstatus"></div>
         </a>
         <button
-          onclick="update_steam_profile()"
-          oncontextmenu="update_steam_profile(true);return false"
+          onclick="if(!update_steam_profile())alert('Update ratelimited, try again after '+new Date(Number(sessionStorage.getItem('update-steam-time'))+STEAM_UPDATE_RATE_LIMIT).toTimeString())"
+          oncontextmenu="if(!update_steam_profile(true))alert('Update ratelimited, try again after '+new Date(Number(sessionStorage.getItem('update-steam-time'))+STEAM_UPDATE_RATE_LIMIT).toTimeString());return false"
         >
           <i>Update live profile (right click for silent mode)</i>
         </button>

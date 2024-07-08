@@ -28,6 +28,7 @@ interface STEAM_PROFILE {
 }
 
 const STEAM_RELAY: string = "https://still-wood-a68b.videocreator.workers.dev/",
+  STEAM_UPDATE_RATE_LIMIT: number = 5e3,
   STEAM_DEFAULTS: STEAM_PROFILE = {
     name: "Georg M. H.",
     user: "videocreator",
@@ -261,8 +262,16 @@ window.addEventListener("load", () => {
     }
   }
 
-  function update_steam_profile(silent: boolean = false) {
+  function update_steam_profile(silent: boolean = false): boolean {
     if (!silent) set_steam_status();
+    if (
+      sessionStorage.getItem("update-steam-time") &&
+      Date.now() - Number(sessionStorage.getItem("update-steam-time")) <
+        STEAM_UPDATE_RATE_LIMIT
+    )
+      return false;
+    sessionStorage.setItem("update-steam-time", Date.now().toString());
+
     get_steam_profile().then(async (r: Response) => {
       if (!r.ok) {
         set_steam_status(null);
@@ -306,13 +315,20 @@ window.addEventListener("load", () => {
         user: player_info.personaname,
       });
     });
+    return true;
   }
 
-  update_steam_profile();
-  setInterval(() => {
-    if (document.hasFocus()) update_steam_profile(true);
-    else document.body.setAttribute("update-steam-profile", "");
-  }, 300000);
+  let load_steam_profile_interval = setInterval(() => {
+    if (update_steam_profile()) {
+      console.log("Steam profile loaded");
+      clearInterval(load_steam_profile_interval);
+      setInterval(() => {
+        if (document.hasFocus()) update_steam_profile(true);
+        else document.body.setAttribute("update-steam-profile", "");
+      }, 300000);
+    }
+  }, 500);
+
   window.addEventListener("focus", () => {
     if (!document.body.hasAttribute("update-steam-profile")) return;
     document.body.removeAttribute("update-steam-profile");

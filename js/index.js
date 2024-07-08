@@ -54,7 +54,7 @@ window.addEventListener("load", function () {
     document.head.appendChild(s);
     s.sheet.insertRule("#version::after{content: \"Script ".concat(VERSION, "\"}"));
 });
-var STEAM_RELAY = "https://still-wood-a68b.videocreator.workers.dev/", STEAM_DEFAULTS = {
+var STEAM_RELAY = "https://still-wood-a68b.videocreator.workers.dev/", STEAM_UPDATE_RATE_LIMIT = 5e3, STEAM_DEFAULTS = {
     name: "Georg M. H.",
     user: "videocreator",
     id: "76561199245129581",
@@ -222,6 +222,11 @@ window.addEventListener("load", function () {
         if (silent === void 0) { silent = false; }
         if (!silent)
             set_steam_status();
+        if (sessionStorage.getItem("update-steam-time") &&
+            Date.now() - Number(sessionStorage.getItem("update-steam-time")) <
+                STEAM_UPDATE_RATE_LIMIT)
+            return false;
+        sessionStorage.setItem("update-steam-time", Date.now().toString());
         get_steam_profile().then(function (r) { return __awaiter(_this, void 0, void 0, function () {
             var json, player_info, status;
             return __generator(this, function (_a) {
@@ -268,14 +273,20 @@ window.addEventListener("load", function () {
                 }
             });
         }); });
+        return true;
     }
-    update_steam_profile();
-    setInterval(function () {
-        if (document.hasFocus())
-            update_steam_profile(true);
-        else
-            document.body.setAttribute("update-steam-profile", "");
-    }, 300000);
+    var load_steam_profile_interval = setInterval(function () {
+        if (update_steam_profile()) {
+            console.log("Steam profile loaded");
+            clearInterval(load_steam_profile_interval);
+            setInterval(function () {
+                if (document.hasFocus())
+                    update_steam_profile(true);
+                else
+                    document.body.setAttribute("update-steam-profile", "");
+            }, 300000);
+        }
+    }, 500);
     window.addEventListener("focus", function () {
         if (!document.body.hasAttribute("update-steam-profile"))
             return;
