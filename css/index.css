@@ -127,6 +127,9 @@ header > nav {
   left: 0;
   right: 0;
 }
+#steam-card {
+  padding: 3px;
+}
 .steamstatus {
   position: relative;
   grid-area: status;
@@ -190,17 +193,27 @@ header > nav {
 }
 #steam-profile {
   display: grid;
-  grid-template-areas: "picture user" "picture name" "picture status";
+  grid-template-areas: "picture user" "picture name" "picture status" "picture _";
   width: fit-content;
   gap: 8px;
-  margin: 8px 16px;
+  margin: 4px;
   --picture-border-size: 2px;
+  --picture-size: 128px;
+  grid-template-rows:
+    calc(var(--picture-size) / 4) calc(var(--picture-size) / 8) calc(
+      var(--picture-size) / 6
+    )
+    calc(
+      var(--picture-size) - (var(--picture-size) / 4) -
+        (var(--picture-size) / 5 * 2)
+    );
+  backdrop-filter: blur(4px) brightness(0.7);
+  padding: 8px 20px 8px 10px;
 }
 #steam-profile > img {
   grid-area: picture;
-  --size: 128px;
-  height: var(--size);
-  width: var(--size);
+  height: var(--picture-size);
+  width: var(--picture-size);
 }
 #steam-profile > img:nth-of-type(1) {
   border: var(--picture-border-size) solid var(--status-color);
@@ -210,12 +223,15 @@ header > nav {
   backdrop-filter: blur(2px) brightness(0.8);
   position: absolute;
   transform: translate(var(--picture-border-size), var(--picture-border-size));
+  pointer-events: none;
 }
 #steam-profile > div:nth-of-type(1) {
   grid-area: user;
+  font-size: calc(var(--picture-size) / 4);
 }
 #steam-profile > div:nth-of-type(2) {
   grid-area: name;
+  font-size: calc(var(--picture-size) / 8);
 }
 #youtube-card > img:nth-of-type(1) {
   width: 480px;
