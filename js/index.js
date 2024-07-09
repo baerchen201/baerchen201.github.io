@@ -54,7 +54,7 @@ window.addEventListener("load", function () {
     document.head.appendChild(s);
     s.sheet.insertRule("#version::after{content: \"Script ".concat(VERSION, "\"}"));
 });
-function _init_browser_compatibility() {
+(function _init_browser_compatibility() {
     function browser_compatible() {
         var ret = [];
         // Add compatibility checks here
@@ -83,8 +83,8 @@ function _init_browser_compatibility() {
     }
     window.addEventListener("load", check_website_compatibility);
     window.addEventListener("resize", check_website_compatibility);
-}
-function _init_steam() {
+})();
+(function _init_steam() {
     var STEAM_RELAY = "https://still-wood-a68b.videocreator.workers.dev/", STEAM_UPDATE_RATE_LIMIT = 5e3, STEAM_DEFAULTS = {
         name: "Georg M. H.",
         user: "videocreator",
@@ -332,6 +332,4 @@ function _init_steam() {
         window.update_steam_profile = update_steam_profile;
         // https://stackoverflow.com/a/69512412/25675276
     });
-}
-_init_browser_compatibility();
-_init_steam();
+})();

@@ -20,7 +20,7 @@ window.addEventListener("load", () => {
   s.sheet!.insertRule(`#version::after{content: "Script ${VERSION}"}`);
 });
 
-function _init_browser_compatibility() {
+(function _init_browser_compatibility() {
   function browser_compatible(): string[] {
     let ret: string[] = [];
 
@@ -57,9 +57,9 @@ function _init_browser_compatibility() {
 
   window.addEventListener("load", check_website_compatibility);
   window.addEventListener("resize", check_website_compatibility);
-}
+})();
 
-function _init_steam() {
+(function _init_steam() {
   interface STEAM_PROFILE {
     user: string;
     name: string;
@@ -388,7 +388,4 @@ function _init_steam() {
 
     // https://stackoverflow.com/a/69512412/25675276
   });
-}
-
-_init_browser_compatibility();
-_init_steam();
+})();
