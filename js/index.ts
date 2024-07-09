@@ -351,9 +351,17 @@ function browser_compatible(): string[] {
 
   // Add compatibility checks here
   if (window.innerWidth < 480)
-    ret.push(`Window width (${window.innerWidth}px < 480px)`);
+    ret.push(`Window width very low (${window.innerWidth}px < 480px)`);
   if (window.innerHeight < 300)
-    ret.push(`Window height (${window.innerHeight}px < 300px)`);
+    ret.push(`Window height very low (${window.innerHeight}px < 300px)`);
+  let safari_match: RegExpExecArray | null = /.* (Safari\/[\d\.]+)/.exec(
+    navigator.userAgent
+  );
+  if (safari_match)
+    ret.push(`Safari Browser is incompatible ("${safari_match[1]}")`);
+  let phone_match: RegExpExecArray | null =
+    /Mozilla\/5\.0 \((iPhone|Android);.+/.exec(navigator.userAgent);
+  if (phone_match) ret.push(`Phones are incompatible (${phone_match[1]})`);
 
   return ret;
 }

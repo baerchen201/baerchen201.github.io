@@ -305,9 +305,15 @@ function browser_compatible() {
     var ret = [];
     // Add compatibility checks here
     if (window.innerWidth < 480)
-        ret.push("Window width (".concat(window.innerWidth, "px < 480px)"));
+        ret.push("Window width very low (".concat(window.innerWidth, "px < 480px)"));
     if (window.innerHeight < 300)
-        ret.push("Window height (".concat(window.innerHeight, "px < 300px)"));
+        ret.push("Window height very low (".concat(window.innerHeight, "px < 300px)"));
+    var safari_match = /.* (Safari\/[\d\.]+)/.exec(navigator.userAgent);
+    if (safari_match)
+        ret.push("Safari Browser is incompatible (\"".concat(safari_match[1], "\")"));
+    var phone_match = /Mozilla\/5\.0 \((iPhone|Android);.+/.exec(navigator.userAgent);
+    if (phone_match)
+        ret.push("Phones are incompatible (".concat(phone_match[1], ")"));
     return ret;
 }
 function check_website_compatibility() {
