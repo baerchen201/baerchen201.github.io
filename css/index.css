@@ -59,17 +59,18 @@ body {
   --content-height: calc(100vh - var(--header-height));
 }
 header {
-  width: 100vw;
-  height: var(--header-height);
+  right: 0;
+  height: calc(var(--header-height) + 2px);
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
   z-index: 65534;
-  background: #000000a0;
+  backdrop-filter: brightness(0.2) blur(3px);
 }
 header > nav {
   display: flex;
@@ -216,6 +217,9 @@ header > nav {
 #steam-profile > div:nth-of-type(2) {
   grid-area: name;
 }
+#youtube-card > img:nth-of-type(1) {
+  width: 480px;
+}
 
 /* Custom CSS (if you plan to copy my website, this is what you should edit) */
 body {
@@ -237,7 +241,24 @@ header > a.active {
   color: #aaa;
 }
 #steam-card::before {
-  /* Credit to https://chaoti.csignal.org/steam_wallpaper/ */
-  background-image: url(/img/Steam_Moon_1080p.png);
-  filter: brightness(0.6) blur(3px);
+  /* https://store.cloudflare.steamstatic.com/public/images/v6/colored_body_top.png?v=2 */
+  background-image: url(/img/colored_body_top.png);
+  filter: blur(3px);
+}
+/* Style placeholders (so I can see the layout of the cards) */
+#discord-card {
+  background: #5865f260;
+}
+#chat-card {
+  background: linear-gradient(to right, #24a1de60, #25d36660);
+}
+#youtube-card {
+  background: #282828;
+}
+#github-card {
+  background: #24292e;
+}
+#tiktok-card {
+  box-shadow: inset -10px -8px #ff0050, inset 10px 8px #00f2ea;
+  background: #000;
 }
