@@ -20,6 +20,45 @@ window.addEventListener("load", () => {
   s.sheet!.insertRule(`#version::after{content: "Script ${VERSION}"}`);
 });
 
+function _init_browser_compatibility() {
+  function browser_compatible(): string[] {
+    let ret: string[] = [];
+
+    // Add compatibility checks here
+    if (window.innerWidth < 480)
+      ret.push(`Window width very low (${window.innerWidth}px < 480px)`);
+    if (window.innerHeight < 300)
+      ret.push(`Window height very low (${window.innerHeight}px < 300px)`);
+    let safari_match: RegExpExecArray | null =
+      /.*Version\/([\d\.]+) (Safari\/[\d\.]+)/.exec(navigator.userAgent);
+    if (safari_match)
+      ret.push(`Safari Browser is incompatible ("${safari_match[1]}")`);
+    let phone_match: RegExpExecArray | null =
+      /Mozilla\/5\.0 \((iPhone|Android);.+/.exec(navigator.userAgent);
+    if (phone_match) ret.push(`Phones are incompatible (${phone_match[1]})`);
+
+    return ret;
+  }
+  function check_website_compatibility() {
+    let is_browser_compatible = browser_compatible();
+    console.log("Browser compatibility check result:", is_browser_compatible);
+    if (is_browser_compatible.length)
+      if (!sessionStorage.getItem("hide-compatibility-warning")) {
+        if (
+          confirm(
+            "Warning!\nThis website may not run correctly on your browser or device:\n" +
+              is_browser_compatible.join("\n") +
+              "\n\nOK: Hide, don't show again for this session\nCancel: Hide"
+          )
+        )
+          sessionStorage.setItem("hide-compatibility-warning", "true");
+      }
+  }
+
+  window.addEventListener("load", check_website_compatibility);
+  window.addEventListener("resize", check_website_compatibility);
+}
+
 function _init_steam() {
   interface STEAM_PROFILE {
     user: string;
@@ -349,45 +388,6 @@ function _init_steam() {
 
     // https://stackoverflow.com/a/69512412/25675276
   });
-}
-
-function _init_browser_compatibility() {
-  function browser_compatible(): string[] {
-    let ret: string[] = [];
-
-    // Add compatibility checks here
-    if (window.innerWidth < 480)
-      ret.push(`Window width very low (${window.innerWidth}px < 480px)`);
-    if (window.innerHeight < 300)
-      ret.push(`Window height very low (${window.innerHeight}px < 300px)`);
-    let safari_match: RegExpExecArray | null =
-      /.*Version\/([\d\.]+) (Safari\/[\d\.]+)/.exec(navigator.userAgent);
-    if (safari_match)
-      ret.push(`Safari Browser is incompatible ("${safari_match[1]}")`);
-    let phone_match: RegExpExecArray | null =
-      /Mozilla\/5\.0 \((iPhone|Android);.+/.exec(navigator.userAgent);
-    if (phone_match) ret.push(`Phones are incompatible (${phone_match[1]})`);
-
-    return ret;
-  }
-  function check_website_compatibility() {
-    let is_browser_compatible = browser_compatible();
-    console.log("Browser compatibility check result:", is_browser_compatible);
-    if (is_browser_compatible.length)
-      if (!sessionStorage.getItem("hide-compatibility-warning")) {
-        if (
-          confirm(
-            "Warning!\nThis website may not run correctly on your browser or device:\n" +
-              is_browser_compatible.join("\n") +
-              "\n\nOK: Hide, don't show again for this session\nCancel: Hide"
-          )
-        )
-          sessionStorage.setItem("hide-compatibility-warning", "true");
-      }
-  }
-
-  window.addEventListener("load", check_website_compatibility);
-  window.addEventListener("resize", check_website_compatibility);
 }
 
 _init_browser_compatibility();

@@ -54,6 +54,36 @@ window.addEventListener("load", function () {
     document.head.appendChild(s);
     s.sheet.insertRule("#version::after{content: \"Script ".concat(VERSION, "\"}"));
 });
+function _init_browser_compatibility() {
+    function browser_compatible() {
+        var ret = [];
+        // Add compatibility checks here
+        if (window.innerWidth < 480)
+            ret.push("Window width very low (".concat(window.innerWidth, "px < 480px)"));
+        if (window.innerHeight < 300)
+            ret.push("Window height very low (".concat(window.innerHeight, "px < 300px)"));
+        var safari_match = /.*Version\/([\d\.]+) (Safari\/[\d\.]+)/.exec(navigator.userAgent);
+        if (safari_match)
+            ret.push("Safari Browser is incompatible (\"".concat(safari_match[1], "\")"));
+        var phone_match = /Mozilla\/5\.0 \((iPhone|Android);.+/.exec(navigator.userAgent);
+        if (phone_match)
+            ret.push("Phones are incompatible (".concat(phone_match[1], ")"));
+        return ret;
+    }
+    function check_website_compatibility() {
+        var is_browser_compatible = browser_compatible();
+        console.log("Browser compatibility check result:", is_browser_compatible);
+        if (is_browser_compatible.length)
+            if (!sessionStorage.getItem("hide-compatibility-warning")) {
+                if (confirm("Warning!\nThis website may not run correctly on your browser or device:\n" +
+                    is_browser_compatible.join("\n") +
+                    "\n\nOK: Hide, don't show again for this session\nCancel: Hide"))
+                    sessionStorage.setItem("hide-compatibility-warning", "true");
+            }
+    }
+    window.addEventListener("load", check_website_compatibility);
+    window.addEventListener("resize", check_website_compatibility);
+}
 function _init_steam() {
     var STEAM_RELAY = "https://still-wood-a68b.videocreator.workers.dev/", STEAM_UPDATE_RATE_LIMIT = 5e3, STEAM_DEFAULTS = {
         name: "Georg M. H.",
@@ -302,36 +332,6 @@ function _init_steam() {
         window.update_steam_profile = update_steam_profile;
         // https://stackoverflow.com/a/69512412/25675276
     });
-}
-function _init_browser_compatibility() {
-    function browser_compatible() {
-        var ret = [];
-        // Add compatibility checks here
-        if (window.innerWidth < 480)
-            ret.push("Window width very low (".concat(window.innerWidth, "px < 480px)"));
-        if (window.innerHeight < 300)
-            ret.push("Window height very low (".concat(window.innerHeight, "px < 300px)"));
-        var safari_match = /.*Version\/([\d\.]+) (Safari\/[\d\.]+)/.exec(navigator.userAgent);
-        if (safari_match)
-            ret.push("Safari Browser is incompatible (\"".concat(safari_match[1], "\")"));
-        var phone_match = /Mozilla\/5\.0 \((iPhone|Android);.+/.exec(navigator.userAgent);
-        if (phone_match)
-            ret.push("Phones are incompatible (".concat(phone_match[1], ")"));
-        return ret;
-    }
-    function check_website_compatibility() {
-        var is_browser_compatible = browser_compatible();
-        console.log("Browser compatibility check result:", is_browser_compatible);
-        if (is_browser_compatible.length)
-            if (!sessionStorage.getItem("hide-compatibility-warning")) {
-                if (confirm("Warning!\nThis website may not run correctly on your browser or device:\n" +
-                    is_browser_compatible.join("\n") +
-                    "\n\nOK: Hide, don't show again for this session\nCancel: Hide"))
-                    sessionStorage.setItem("hide-compatibility-warning", "true");
-            }
-    }
-    window.addEventListener("load", check_website_compatibility);
-    window.addEventListener("resize", check_website_compatibility);
 }
 _init_browser_compatibility();
 _init_steam();
