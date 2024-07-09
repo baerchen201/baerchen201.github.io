@@ -354,9 +354,8 @@ function browser_compatible(): string[] {
     ret.push(`Window width very low (${window.innerWidth}px < 480px)`);
   if (window.innerHeight < 300)
     ret.push(`Window height very low (${window.innerHeight}px < 300px)`);
-  let safari_match: RegExpExecArray | null = /.* (Safari\/[\d\.]+)/.exec(
-    navigator.userAgent
-  );
+  let safari_match: RegExpExecArray | null =
+    /.*Version\/([\d\.]+) (Safari\/[\d\.]+)/.exec(navigator.userAgent);
   if (safari_match)
     ret.push(`Safari Browser is incompatible ("${safari_match[1]}")`);
   let phone_match: RegExpExecArray | null =

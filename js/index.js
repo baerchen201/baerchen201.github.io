@@ -308,7 +308,7 @@ function browser_compatible() {
         ret.push("Window width very low (".concat(window.innerWidth, "px < 480px)"));
     if (window.innerHeight < 300)
         ret.push("Window height very low (".concat(window.innerHeight, "px < 300px)"));
-    var safari_match = /.* (Safari\/[\d\.]+)/.exec(navigator.userAgent);
+    var safari_match = /.*Version\/([\d\.]+) (Safari\/[\d\.]+)/.exec(navigator.userAgent);
     if (safari_match)
         ret.push("Safari Browser is incompatible (\"".concat(safari_match[1], "\")"));
     var phone_match = /Mozilla\/5\.0 \((iPhone|Android);.+/.exec(navigator.userAgent);
