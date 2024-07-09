@@ -396,201 +396,54 @@ window.addEventListener("load", () => {
     GITHUB_UPDATE_RATE_LIMIT: number = 10e3;
 
   interface GITHUB_PROFILE_PRIVATE {
-    login: {
-      type: "string";
-      examples: ["octocat"];
-    };
-    id: {
-      type: "integer";
-      format: "int64";
-      examples: [1];
-    };
-    node_id: {
-      type: "string";
-      examples: ["MDQ6VXNlcjE="];
-    };
-    avatar_url: {
-      type: "string";
-      format: "uri";
-      examples: ["https://github.com/images/error/octocat_happy.gif"];
-    };
-    gravatar_id: {
-      type: ["string", "null"];
-      examples: ["41d064eb2195891e12d0413f63227ea7"];
-    };
-    url: {
-      type: "string";
-      format: "uri";
-      examples: ["https://api.github.com/users/octocat"];
-    };
-    html_url: {
-      type: "string";
-      format: "uri";
-      examples: ["https://github.com/octocat"];
-    };
-    followers_url: {
-      type: "string";
-      format: "uri";
-      examples: ["https://api.github.com/users/octocat/followers"];
-    };
-    following_url: {
-      type: "string";
-      examples: ["https://api.github.com/users/octocat/following{/other_user}"];
-    };
-    gists_url: {
-      type: "string";
-      examples: ["https://api.github.com/users/octocat/gists{/gist_id}"];
-    };
-    starred_url: {
-      type: "string";
-      examples: ["https://api.github.com/users/octocat/starred{/owner}{/repo}"];
-    };
-    subscriptions_url: {
-      type: "string";
-      format: "uri";
-      examples: ["https://api.github.com/users/octocat/subscriptions"];
-    };
-    organizations_url: {
-      type: "string";
-      format: "uri";
-      examples: ["https://api.github.com/users/octocat/orgs"];
-    };
-    repos_url: {
-      type: "string";
-      format: "uri";
-      examples: ["https://api.github.com/users/octocat/repos"];
-    };
-    events_url: {
-      type: "string";
-      examples: ["https://api.github.com/users/octocat/events{/privacy}"];
-    };
-    received_events_url: {
-      type: "string";
-      format: "uri";
-      examples: ["https://api.github.com/users/octocat/received_events"];
-    };
-    type: {
-      type: "string";
-      examples: ["User"];
-    };
-    site_admin: {
-      type: "boolean";
-    };
-    name: {
-      type: ["string", "null"];
-      examples: ["monalisa octocat"];
-    };
-    company: {
-      type: ["string", "null"];
-      examples: ["GitHub"];
-    };
-    blog: {
-      type: ["string", "null"];
-      examples: ["https://github.com/blog"];
-    };
-    location: {
-      type: ["string", "null"];
-      examples: ["San Francisco"];
-    };
-    email: {
-      type: ["string", "null"];
-      format: "email";
-      examples: ["octocat@github.com"];
-    };
-    notification_email: {
-      type: ["string", "null"];
-      format: "email";
-      examples: ["octocat@github.com"];
-    };
-    hireable: {
-      type: ["boolean", "null"];
-    };
-    bio: {
-      type: ["string", "null"];
-      examples: ["There once was..."];
-    };
-    twitter_username: {
-      type: ["string", "null"];
-      examples: ["monalisa"];
-    };
-    public_repos: {
-      type: "integer";
-      examples: [2];
-    };
-    public_gists: {
-      type: "integer";
-      examples: [1];
-    };
-    followers: {
-      type: "integer";
-      examples: [20];
-    };
-    following: {
-      type: "integer";
-      examples: [0];
-    };
-    created_at: {
-      type: "string";
-      format: "date-time";
-      examples: ["2008-01-14T04:33:35Z"];
-    };
-    updated_at: {
-      type: "string";
-      format: "date-time";
-      examples: ["2008-01-14T04:33:35Z"];
-    };
-    private_gists: {
-      type: "integer";
-      examples: [81];
-    };
-    total_private_repos: {
-      type: "integer";
-      examples: [100];
-    };
-    owned_private_repos: {
-      type: "integer";
-      examples: [100];
-    };
-    disk_usage: {
-      type: "integer";
-      examples: [10000];
-    };
-    collaborators: {
-      type: "integer";
-      examples: [8];
-    };
-    two_factor_authentication: {
-      type: "boolean";
-      examples: [true];
-    };
+    login: string;
+    id: number;
+    node_id: string;
+    avatar_url: string;
+    gravatar_id?: string;
+    url: string;
+    html_url: string;
+    followers_url: string;
+    following_url: string;
+    gists_url: string;
+    starred_url: string;
+    subscriptions_url: string;
+    organizations_url: string;
+    repos_url: string;
+    events_url: string;
+    received_events_url: string;
+    type: string;
+    site_admin: boolean;
+    name?: string;
+    company?: string;
+    blog?: string;
+    location?: string;
+    email?: string;
+    notification_email?: string;
+    hireable?: boolean;
+    bio?: string;
+    twitter_username?: string;
+    public_repos: number;
+    public_gists: number;
+    followers: number;
+    following: number;
+    created_at: string;
+    updated_at: string;
+    private_gists: number;
+    total_private_repos: number;
+    owned_private_repos: number;
+    disk_usage: number;
+    collaborators: number;
+    two_factor_authentication: boolean;
     plan: {
-      type: "object";
-      properties: {
-        collaborators: {
-          type: "integer";
-        };
-        name: {
-          type: "string";
-        };
-        space: {
-          type: "integer";
-        };
-        private_repos: {
-          type: "integer";
-        };
-      };
-      required: ["collaborators", "name", "space", "private_repos"];
+      collaborators: number;
+      name: string;
+      space: number;
+      private_repos: number;
     };
-    suspended_at: {
-      type: ["string", "null"];
-      format: "date-time";
-    };
-    business_plus: {
-      type: "boolean";
-    };
-    ldap_dn: {
-      type: "string";
-    };
+    suspended_at?: string;
+    business_plus: boolean;
+    ldap_dn: string;
   }
   interface GITHUB_PROFILE_PUBLIC {
     login: {
