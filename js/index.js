@@ -333,3 +333,26 @@ window.addEventListener("load", function () {
         // https://stackoverflow.com/a/69512412/25675276
     });
 })();
+(function _init_github() {
+    var _this = this;
+    var GITHUB_RELAY = "https://still-paper-fdc6.videocreator.workers.dev/", GITHUB_UPDATE_RATE_LIMIT = 10e3;
+    window.addEventListener("load", function () {
+        var github_card = document.getElementById("github-card");
+        setTimeout(function () {
+            sessionStorage.setItem("update-github-time", Date.now().toString());
+            fetch(GITHUB_RELAY).then(function (r) { return __awaiter(_this, void 0, void 0, function () {
+                var _a;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            _a = github_card;
+                            return [4 /*yield*/, r.text()];
+                        case 1:
+                            _a.innerText = _b.sent();
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
+        }, GITHUB_UPDATE_RATE_LIMIT - (Date.now() - Number(sessionStorage.getItem("update-github-time"))) + 500);
+    });
+})();
