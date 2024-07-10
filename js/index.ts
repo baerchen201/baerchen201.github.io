@@ -446,160 +446,51 @@ window.addEventListener("load", () => {
     ldap_dn: string;
   }
   interface GITHUB_PROFILE_PUBLIC {
-    login: {
-      type: "string";
-    };
-    id: {
-      type: "integer";
-      format: "int64";
-    };
-    node_id: {
-      type: "string";
-    };
-    avatar_url: {
-      type: "string";
-      format: "uri";
-    };
-    gravatar_id: {
-      type: ["string", "null"];
-    };
-    url: {
-      type: "string";
-      format: "uri";
-    };
-    html_url: {
-      type: "string";
-      format: "uri";
-    };
-    followers_url: {
-      type: "string";
-      format: "uri";
-    };
-    following_url: {
-      type: "string";
-    };
-    gists_url: {
-      type: "string";
-    };
-    starred_url: {
-      type: "string";
-    };
-    subscriptions_url: {
-      type: "string";
-      format: "uri";
-    };
-    organizations_url: {
-      type: "string";
-      format: "uri";
-    };
-    repos_url: {
-      type: "string";
-      format: "uri";
-    };
-    events_url: {
-      type: "string";
-    };
-    received_events_url: {
-      type: "string";
-      format: "uri";
-    };
-    type: {
-      type: "string";
-    };
-    site_admin: {
-      type: "boolean";
-    };
-    name: {
-      type: ["string", "null"];
-    };
-    company: {
-      type: ["string", "null"];
-    };
-    blog: {
-      type: ["string", "null"];
-    };
-    location: {
-      type: ["string", "null"];
-    };
-    email: {
-      type: ["string", "null"];
-      format: "email";
-    };
-    notification_email: {
-      type: ["string", "null"];
-      format: "email";
-    };
-    hireable: {
-      type: ["boolean", "null"];
-    };
-    bio: {
-      type: ["string", "null"];
-    };
-    twitter_username: {
-      type: ["string", "null"];
-    };
-    public_repos: {
-      type: "integer";
-    };
-    public_gists: {
-      type: "integer";
-    };
-    followers: {
-      type: "integer";
-    };
-    following: {
-      type: "integer";
-    };
-    created_at: {
-      type: "string";
-      format: "date-time";
-    };
-    updated_at: {
-      type: "string";
-      format: "date-time";
-    };
+    login: string;
+    id: number;
+    node_id: string;
+    avatar_url: string;
+    gravatar_id?: string;
+    url: string;
+    html_url: string;
+    followers_url: string;
+    following_url: string;
+    gists_url: string;
+    starred_url: string;
+    subscriptions_url: string;
+    organizations_url: string;
+    repos_url: string;
+    events_url: string;
+    received_events_url: string;
+    type: string;
+    site_admin: boolean;
+    name?: string;
+    company?: string;
+    blog?: string;
+    location?: string;
+    email?: string;
+    notification_email?: string;
+    hireable?: boolean;
+    bio?: string;
+    twitter_username?: string;
+    public_repos: number;
+    public_gists: number;
+    followers: number;
+    following: number;
+    created_at: string;
+    updated_at: string;
     plan: {
-      type: "object";
-      properties: {
-        collaborators: {
-          type: "integer";
-        };
-        name: {
-          type: "string";
-        };
-        space: {
-          type: "integer";
-        };
-        private_repos: {
-          type: "integer";
-        };
-      };
-      required: ["collaborators", "name", "space", "private_repos"];
+      collaborators: number;
+      name: string;
+      space: number;
+      private_repos: number;
     };
-    suspended_at: {
-      type: ["string", "null"];
-      format: "date-time";
-    };
-    private_gists: {
-      type: "integer";
-      examples: [1];
-    };
-    total_private_repos: {
-      type: "integer";
-      examples: [2];
-    };
-    owned_private_repos: {
-      type: "integer";
-      examples: [2];
-    };
-    disk_usage: {
-      type: "integer";
-      examples: [1];
-    };
-    collaborators: {
-      type: "integer";
-      examples: [3];
-    };
+    suspended_at?: string;
+    private_gists: number;
+    total_private_repos: number;
+    owned_private_repos: number;
+    disk_usage: number;
+    collaborators: number;
   }
 
   window.addEventListener("load", () => {
