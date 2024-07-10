@@ -341,14 +341,16 @@ window.addEventListener("load", function () {
         setTimeout(function () {
             sessionStorage.setItem("update-github-time", Date.now().toString());
             fetch(GITHUB_RELAY).then(function (r) { return __awaiter(_this, void 0, void 0, function () {
-                var _a;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
-                        case 0:
-                            _a = github_card;
-                            return [4 /*yield*/, r.text()];
+                var json;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, r.json()];
                         case 1:
-                            _a.innerText = _b.sent();
+                            json = _a.sent();
+                            github_card.innerHTML = "";
+                            Object.keys(json).forEach(function (key) {
+                                github_card.innerText += "".concat(key, ": ").concat(String(json[key]), "\n");
+                            });
                             return [2 /*return*/];
                     }
                 });

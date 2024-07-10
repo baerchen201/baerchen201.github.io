@@ -445,6 +445,8 @@ window.addEventListener("load", () => {
     business_plus: boolean;
     ldap_dn: string;
   }
+
+  // Unused
   interface GITHUB_PROFILE_PUBLIC {
     login: string;
     id: number;
@@ -502,7 +504,11 @@ window.addEventListener("load", () => {
       sessionStorage.setItem("update-github-time", Date.now().toString());
 
       fetch(GITHUB_RELAY).then(async (r: Response) => {
-        github_card.innerText = await r.text();
+        let json: GITHUB_PROFILE_PRIVATE = await r.json();
+        github_card.innerHTML = "";
+        Object.keys(json).forEach((key: string) => {
+          github_card.innerText += `${key}: ${String(json[key])}\n`;
+        });
       });
     }, GITHUB_UPDATE_RATE_LIMIT - (Date.now() - Number(sessionStorage.getItem("update-github-time"))) + 500);
   });
