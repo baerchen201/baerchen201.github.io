@@ -338,6 +338,8 @@ window.addEventListener("load", function () {
     var GITHUB_RELAY = "https://still-paper-fdc6.videocreator.workers.dev/", GITHUB_UPDATE_RATE_LIMIT = 10e3;
     window.addEventListener("load", function () {
         var github_card = document.getElementById("github-card");
+        if (!sessionStorage.getItem("update-github-time"))
+            sessionStorage.setItem("update-github-time", Date.now().toString());
         setTimeout(function () {
             sessionStorage.setItem("update-github-time", Date.now().toString());
             fetch(GITHUB_RELAY).then(function (r) { return __awaiter(_this, void 0, void 0, function () {
@@ -347,6 +349,7 @@ window.addEventListener("load", function () {
                         case 0: return [4 /*yield*/, r.json()];
                         case 1:
                             json = _a.sent();
+                            console.log("Github profile data loaded:", json);
                             github_card.innerHTML = "";
                             Object.keys(json).forEach(function (key) {
                                 github_card.innerText += "".concat(key, ": ").concat(String(json[key]), "\n");

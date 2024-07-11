@@ -499,12 +499,15 @@ window.addEventListener("load", () => {
     let github_card: HTMLDivElement = document.getElementById(
       "github-card"
     ) as HTMLDivElement;
+    if (!sessionStorage.getItem("update-github-time"))
+      sessionStorage.setItem("update-github-time", Date.now().toString());
 
     setTimeout(() => {
       sessionStorage.setItem("update-github-time", Date.now().toString());
 
       fetch(GITHUB_RELAY).then(async (r: Response) => {
         let json: GITHUB_PROFILE_PRIVATE = await r.json();
+        console.log("Github profile data loaded:", json);
         github_card.innerHTML = "";
         Object.keys(json).forEach((key: string) => {
           github_card.innerText += `${key}: ${String(json[key])}\n`;
