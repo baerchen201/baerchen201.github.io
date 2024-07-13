@@ -349,10 +349,10 @@ window.addEventListener("load", function () {
                         case 0: return [4 /*yield*/, r.json()];
                         case 1:
                             json = _a.sent();
-                            console.log("Github profile data loaded:", json);
+                            console.log("Github data loaded:", json);
                             github_card.innerHTML = "";
-                            Object.keys(json).forEach(function (key) {
-                                github_card.innerText += "".concat(key, ": ").concat(String(json[key]), "\n");
+                            Object.keys(json.profile).forEach(function (key) {
+                                github_card.innerText += "".concat(key, ": ").concat(String(json.profile[key]), "\n");
                             });
                             return [2 /*return*/];
                     }
