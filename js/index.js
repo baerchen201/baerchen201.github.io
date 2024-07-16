@@ -1,5 +1,5 @@
 "use strict";
-const VERSION = "v1.3-0.2";
+const VERSION = "v1.3-0.3";
 /*
     baer1 website
     Copyright (C) 2024  baer1
@@ -45,7 +45,7 @@ window.addEventListener("load", () => {
     };
     let start_title_effect = () => {
         stop_title_effect();
-        title_effect_interval = setInterval(title_effect_frame, 50);
+        title_effect_interval = Number(setInterval(title_effect_frame, 50));
         title_effect_frame();
     };
     window.addEventListener("blur", stop_title_effect);
