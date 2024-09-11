@@ -1,5 +1,5 @@
 body > #version::before {
-  content: "CSS v1.3-0.2";
+  content: "CSS v1.3-0.3";
 }
 /*
     baer1 website
@@ -32,7 +32,7 @@ body > #content {
   display: grid;
   gap: 20px;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 7em;
+  grid-template-rows: 5em;
 
   grid-auto-rows: 1fr;
   grid-template-areas: "title title";

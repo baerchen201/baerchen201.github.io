@@ -1,5 +1,5 @@
 "use strict";
-const VERSION = "v1.3-0.3";
+const VERSION = "v1.3-0.4";
 /*
     baer1 website
     Copyright (C) 2024  baer1
@@ -29,32 +29,6 @@ window.addEventListener("load", () => {
             transition(btn.getAttribute("data-href"), btn.innerText);
         });
     }
-    const TITLE = document.title;
-    const CHARS = "abcdefghijklmnopqrstuvwxyz1234567890#+~*?!\"'\\/%[]{}$ .,-_<>|".split("");
-    let title_effect_interval = undefined;
-    function title_effect_frame() {
-        let t = document.title.split("");
-        let i = Math.floor(Math.random() * t.length);
-        t[i] = CHARS[Math.floor(Math.random() * CHARS.length)];
-        t[i] = Math.random() > 0.5 ? t[i].toUpperCase() : t[i];
-        document.title = t.join("");
-    }
-    let stop_title_effect = () => {
-        clearInterval(title_effect_interval);
-        document.title = TITLE;
-    };
-    let start_title_effect = () => {
-        stop_title_effect();
-        title_effect_interval = Number(setInterval(title_effect_frame, 50));
-        title_effect_frame();
-    };
-    window.addEventListener("blur", stop_title_effect);
-    window.addEventListener("focus", start_title_effect);
-    start_title_effect();
-    window.addEventListener("beforeunload", () => {
-        stop_title_effect();
-        return true;
-    });
 });
 function transition(url, displayname) {
     if (document.body.getAttribute("transition-state"))
