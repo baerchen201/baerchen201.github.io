@@ -150,6 +150,7 @@ body {
   bottom: 3px;
   font-size: 1em;
   font-family: monospace;
+  user-select: none;
 }
 .update::before {
   content: "Last updated on ";
