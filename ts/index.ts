@@ -11,7 +11,7 @@ const VERSION: string = "v1.3-0.4";
     A copy of the GNU General Public License should be hosted along with
     this website (LICENSE). If not, see <https://www.gnu.org/licenses/>.
 
-    baer1f@outlook.com
+    videocreator@outlook.de
 */
 
 window.addEventListener("load", () => {
