@@ -8,7 +8,10 @@
       "problemMatcher": ["$tsc-watch"],
       "group": "build",
       "label": "Typescript live compilation",
-      "runOptions": { "runOn": "folderOpen" }
+      "runOptions": { "runOn": "folderOpen" },
+      "presentation": {
+        "reveal": "silent"
+      }
     }
   ]
 }
