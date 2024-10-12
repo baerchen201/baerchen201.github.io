@@ -1,4 +1,4 @@
-const VERSION: string = "v1.4";
+const VERSION = "v1.5";
 /*
     baer1 website
     Copyright (C) 2024  baer1
@@ -15,23 +15,28 @@ const VERSION: string = "v1.4";
 */
 
 window.addEventListener("load", () => {
-  let s: HTMLStyleElement = document.createElement("style");
+  let s = document.createElement("style");
   document.head.appendChild(s);
-  s.sheet!.insertRule(`body>#version::after{content: "Script ${VERSION}"}`);
+  s.sheet!.insertRule(`#version::after{content: "Script ${VERSION}"}`);
 });
 
 window.addEventListener("load", () => {
   let buttons: HTMLCollectionOf<HTMLButtonElement> = document
     .getElementById("content")!
     .getElementsByTagName("button");
+
   for (let i = 0; i < buttons.length; i++) {
-    const btn: HTMLButtonElement = buttons[i];
-    btn.addEventListener("click", () => {
-      let href = btn.getAttribute("data-href");
+    const button: HTMLButtonElement = buttons[i];
+
+    button.addEventListener("click", () => {
+      // Link validation (minimal)
+      let href = button.getAttribute("data-href");
       if (!href)
         return alert(
           "This button does not have a data-href attribute.\nPlease open an issue on GitHub to get this fixed"
         );
+
+      // Transition
       document.body.style.pointerEvents = "none";
       document.body
         .animate([{ opacity: "1" }, { opacity: "0" }], {
@@ -46,6 +51,7 @@ window.addEventListener("load", () => {
   }
 });
 
+// Prevent site displaying the transition end state when returning
 window.addEventListener("pageshow", (e: PageTransitionEvent) => {
-  if (e.persisted) window.location.reload();
+  if (e.persisted) location.reload();
 });

@@ -1,5 +1,5 @@
-body > #version::before {
-  content: "CSS v1.4";
+#version::before {
+  content: "CSS v1.5";
 }
 /*
     baer1 website
@@ -26,7 +26,41 @@ body {
   justify-content: center;
   align-items: center;
 }
-body > #content {
+
+#version {
+  position: fixed;
+  bottom: 1px;
+  right: 2px;
+  z-index: 2147483647;
+  color: #ffffff5f;
+  font-family: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", Oxygen,
+    Ubuntu, system-ui, "Conaolas", monospace;
+  user-select: none;
+  transition: 50ms ease-out color;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+#version:hover {
+  color: #fff;
+}
+
+.donut {
+  white-space: pre;
+  font-family: monospace;
+  background: #000;
+  user-select: none;
+  pointer-events: none;
+  position: fixed;
+  z-index: -1;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#content {
   background: #000000a0;
   padding: 25px;
   display: grid;
@@ -39,6 +73,7 @@ body > #content {
 
   position: relative;
 }
+
 #content > div {
   grid-area: title;
   font-size: 3em;
@@ -48,10 +83,11 @@ body > #content {
   display: flex;
   flex-direction: column;
 }
-#content > div > span {
+#content > div span {
   font-size: calc(1em / 3);
   word-wrap: normal;
 }
+
 #content > button {
   --color: 43, 168, 251;
   --text-color: 255, 255, 255;
@@ -76,60 +112,22 @@ body > #content {
   cursor: pointer;
   z-index: 1;
 }
-#content > button:not(:disabled):hover {
+#content > button:hover {
   background: rgb(var(--hover-color));
   box-shadow: 0 0 20px rgba(var(--hover-color), 0.314);
   transform: scale(1.1);
   z-index: 2;
 }
-_ > #content > button:active {
-  background: #3d94cf;
-  transition: all 0.25s;
-  -webkit-transition: all 0.25s;
-  box-shadow: none;
-  transform: scale(0.98);
-}
-
 #content > button > img {
   height: 30px;
   pointer-events: none;
 }
-.donut {
-  white-space: pre;
-  font-family: monospace;
-  background: #000;
-  user-select: none;
-  pointer-events: none;
-  position: fixed;
-  z-index: -1;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-body > #version {
-  position: fixed;
-  bottom: 1px;
-  right: 2px;
-  z-index: 2147483647;
-  color: #ffffff5f;
-  font-family: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", Oxygen,
-    Ubuntu, system-ui, "Conaolas", monospace;
-  user-select: none;
-  transition: 50ms ease-out color;
-  font-size: 16px;
-  display: flex;
-  flex-direction: column;
-  text-align: right;
-}
-body > #version:hover {
-  color: #fff;
-}
-#content > .tiktok:not(:disabled):hover {
+
+.tiktok:hover {
   box-shadow: 2px 2px 20px rgba(0, 242, 234, 0.314),
     -2px -2px 20px rgba(255, 0, 80, 0.314);
 }
-#content > .tiktok::before {
+.tiktok::before {
   background: linear-gradient(to bottom left, #00f2ea, #ff0050);
   opacity: 0;
   position: absolute;
@@ -141,11 +139,11 @@ body > #version:hover {
   content: "";
   transition: 500ms opacity;
 }
-#content > .tiktok:not(:disabled):hover::before {
+.tiktok:hover::before {
   opacity: 1;
 }
 
-#content > .update {
+.update {
   position: absolute;
   text-align: center;
   width: 100%;
@@ -153,6 +151,6 @@ body > #version:hover {
   font-size: 1em;
   font-family: monospace;
 }
-#content > .update::before {
+.update::before {
   content: "Last updated on ";
 }
