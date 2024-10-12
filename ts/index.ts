@@ -1,4 +1,4 @@
-const VERSION: string = "v1.3-0.5";
+const VERSION: string = "v1.4";
 /*
     baer1 website
     Copyright (C) 2024  baer1
