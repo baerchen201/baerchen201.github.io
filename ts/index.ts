@@ -1,4 +1,4 @@
-const VERSION = "v1.5";
+const VERSION = "v2.0";
 /*
     baer1 website
     Copyright (C) 2024  baer1
@@ -20,36 +20,48 @@ window.addEventListener("load", () => {
   s.sheet!.insertRule(`#version::after{content: "Script ${VERSION}"}`);
 });
 
-window.addEventListener("load", () => {
-  let buttons: HTMLCollectionOf<HTMLButtonElement> = document
-    .getElementById("content")!
-    .getElementsByTagName("button");
+class Button extends HTMLElement {
+  constructor() {
+    super();
 
-  for (let i = 0; i < buttons.length; i++) {
-    const button: HTMLButtonElement = buttons[i];
-
-    button.addEventListener("click", () => {
-      // Link validation (minimal)
-      let href = button.getAttribute("data-href");
-      if (!href)
-        return alert(
-          "This button does not have a data-href attribute.\nPlease open an issue on GitHub to get this fixed"
-        );
-
-      // Transition
-      document.body.style.pointerEvents = "none";
-      document.body
-        .animate([{ opacity: "1" }, { opacity: "0" }], {
-          duration: 500,
-          easing: "ease-in",
-          fill: "forwards",
-        })
-        .addEventListener("finish", () => {
-          location.href = href;
-        });
+    this.addEventListener("click", () => {
+      changePage(this.getAttribute("data-href"));
     });
   }
-});
+
+  connectedCallback() {
+    let data_icon: string | null = this.getAttribute("data-icon");
+    console.debug(data_icon);
+    if (data_icon) {
+      let icon = document.createElement("img");
+      icon.src = data_icon;
+      console.log(icon);
+      this.insertBefore(icon, this.firstChild);
+    }
+  }
+}
+customElements.define("baer1-button", Button);
+
+function changePage(url: string | null) {
+  // Minimal link validation
+  if (!url)
+    // Haha compact code (I will NOT regret this some time in the future, failing to read this)
+    return [alert, console.error].forEach((func) => {
+      func(`Invalid url:\n${url}`);
+    });
+
+  // Transition
+  document.body.style.pointerEvents = "none";
+  document.body
+    .animate([{ opacity: "1" }, { opacity: "0" }], {
+      duration: 500,
+      easing: "ease-in",
+      fill: "forwards",
+    })
+    .addEventListener("finish", () => {
+      location.href = url;
+    });
+}
 
 // Prevent site displaying the transition end state when returning
 window.addEventListener("pageshow", (e: PageTransitionEvent) => {
