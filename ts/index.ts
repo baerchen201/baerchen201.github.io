@@ -23,17 +23,19 @@ window.addEventListener("load", () => {
 class Button extends HTMLElement {
   constructor() {
     super();
-
-    this.addEventListener("click", () => {
-      changePage(this.getAttribute("data-href"));
-    });
   }
 
   connectedCallback() {
+    if (!this.hasAttribute("onclick"))
+      this.addEventListener("click", () => {
+        changePage(this.getAttribute("data-href"));
+      });
+
     let data_icon: string | null = this.getAttribute("data-icon");
     console.debug(data_icon);
     if (data_icon) {
       let icon = document.createElement("img");
+      icon.classList.add("icon");
       icon.src = data_icon;
       console.log(icon);
       this.insertBefore(icon, this.firstChild);
