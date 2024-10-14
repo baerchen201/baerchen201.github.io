@@ -46,9 +46,10 @@ body {
   color: #fff;
 }
 
-.donut {
+donut-js {
   white-space: pre;
   font-family: monospace;
+  font-size: larger;
   background: #000;
   user-select: none;
   pointer-events: none;
