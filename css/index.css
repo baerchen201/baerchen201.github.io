@@ -21,6 +21,7 @@
 }
 
 body {
+  user-select: none;
   color: #ffffff;
   background: #000000;
   display: flex;
