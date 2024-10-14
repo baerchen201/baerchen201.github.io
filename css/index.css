@@ -75,6 +75,7 @@ donut-js {
   flex-direction: column;
   position: relative;
   transition: box-shadow 0.2s ease-out;
+  border-radius: 5px;
 }
 #content:hover {
   box-shadow: 0 0 5px #fff;
