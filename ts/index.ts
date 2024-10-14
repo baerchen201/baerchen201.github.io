@@ -1,4 +1,3 @@
-const VERSION = "v2.0";
 /*
     baer1 website
     Copyright (C) 2024  baer1
@@ -13,12 +12,6 @@ const VERSION = "v2.0";
 
     videocreator@outlook.de
 */
-
-window.addEventListener("load", () => {
-  let s = document.createElement("style");
-  document.head.appendChild(s);
-  s.sheet!.insertRule(`#version::after{content: "Script ${VERSION}"}`);
-});
 
 class Button extends HTMLElement {
   constructor() {

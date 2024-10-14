@@ -16,10 +16,6 @@
 @import url(font/roboto/roboto.css);
 @import url(font/ubuntu/ubuntu.css);
 
-#version::before {
-  content: "CSS v2.0";
-}
-
 body {
   user-select: none;
   color: #ffffff;
@@ -40,18 +36,25 @@ body {
   bottom: 1px;
   right: 2px;
   z-index: 2147483647;
+  user-select: none;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  color: #ffffff5c;
+}
+#version a {
   color: #ffffff5f;
+  cursor: pointer;
+  text-decoration: none;
   font-family: "Segoe UI", Tahoma, Geneva, Roboto, Oxygen, Ubuntu, Cantarell,
     "Open Sans", Verdana, system-ui;
-  user-select: none;
-  transition: 50ms ease-out color;
+  transition: color 100ms ease-out;
   font-size: 16px;
-  display: flex;
-  flex-direction: column;
   text-align: right;
 }
-#version:hover {
+#version a:hover {
   color: #fff;
+  text-decoration: underline;
 }
 
 donut-js {
