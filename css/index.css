@@ -80,6 +80,7 @@ donut-js {
   position: relative;
   transition: box-shadow 0.2s ease-out;
   border-radius: 5px;
+  min-width: 300px;
 }
 #content:hover {
   box-shadow: 0 0 5px #fff;
