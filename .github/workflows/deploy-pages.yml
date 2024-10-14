@@ -34,6 +34,8 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Build TypeScript files
         run: tsc
+      - name: Add secret ingredient
+        run: wget https://github.com/baerchen201/baerchen201.github.io/blob/c0b84a621f69528297934a81303db0c03a50e7fb/E765SEKVgAQxpta.gif?raw=true -O E765SEKVgAQxpta.gif
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
