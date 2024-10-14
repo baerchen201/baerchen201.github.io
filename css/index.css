@@ -1,6 +1,3 @@
-#version::before {
-  content: "CSS v1.5";
-}
 /*
     baer1 website
     Copyright (C) 2024  baer1
@@ -16,6 +13,13 @@
     videocreator@outlook.de
 */
 
+@import url(font/roboto/roboto.css);
+@import url(font/ubuntu/ubuntu.css);
+
+#version::before {
+  content: "CSS v2.0";
+}
+
 body {
   color: #ffffff;
   background: #000000;
@@ -25,6 +29,9 @@ body {
   margin: 0;
   justify-content: center;
   align-items: center;
+
+  font-family: "Roboto", "Ubuntu", system-ui;
+  font-weight: 100;
 }
 
 #version {
@@ -33,8 +40,8 @@ body {
   right: 2px;
   z-index: 2147483647;
   color: #ffffff5f;
-  font-family: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", Oxygen,
-    Ubuntu, system-ui, "Conaolas", monospace;
+  font-family: "Segoe UI", Tahoma, Geneva, Roboto, Oxygen, Ubuntu, Cantarell,
+    "Open Sans", Verdana, system-ui;
   user-select: none;
   transition: 50ms ease-out color;
   font-size: 16px;
@@ -73,19 +80,20 @@ donut-js {
 #content > h2,
 #content > h3 {
   grid-column: 1/3;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, monospace;
   text-align: center;
   margin: 0;
 }
 #content > h1 {
   font-size: 3em;
+  font-weight: 400;
 }
 #content > h2 {
   font-size: 1.5em;
+  font-weight: 300;
 }
 #content > h3 {
   font-size: 0.6em;
+  font-weight: 200;
 }
 
 #buttons {
@@ -111,7 +119,7 @@ baer1-button {
   border-radius: 100px;
   background: rgb(var(--color));
   color: rgb(var(--text-color));
-  font-weight: Bold;
+  font-weight: 300;
   transition: all 0.5s;
   cursor: pointer;
 }
