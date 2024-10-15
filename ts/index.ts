@@ -14,24 +14,24 @@
 */
 
 class Button extends HTMLElement {
-  constructor() {
-    super();
-  }
-
   connectedCallback() {
+    // Allow click to be overridden in HTML
     if (!this.hasAttribute("onclick"))
       this.addEventListener("click", () => {
-        changePage(this.getAttribute("data-href"));
+        // Replace instant change with transition
+        changePage(this.getAttribute("href"));
       });
 
-    let data_icon: string | null = this.getAttribute("data-icon");
-    console.debug(data_icon);
-    if (data_icon) {
-      let icon = document.createElement("img");
-      icon.classList.add("icon");
-      icon.src = data_icon;
-      console.log(icon);
-      this.insertBefore(icon, this.firstChild);
+    // If logo set, insert before text
+    let logo_url: string | null = this.getAttribute("logo");
+    if (logo_url) {
+      let logo_img = document.createElement("img");
+      logo_img.src = logo_url;
+
+      // For easier CSS access
+      logo_img.classList.add("logo");
+
+      this.insertBefore(logo_img, this.firstChild);
     }
   }
 }
@@ -40,13 +40,16 @@ customElements.define("baer1-button", Button);
 function changePage(url: string | null) {
   // Minimal link validation
   if (!url)
-    // Haha compact code (I will NOT regret this some time in the future, failing to read this)
+    // @ future me: Check commit 4551a361
+    // Print an error, both in console, and to the user
     return [alert, console.error].forEach((func) => {
       func(`Invalid url:\n${url}`);
     });
 
-  // Transition
+  // Disable pointer-events on body, to prevent disruption of transition
   document.body.style.pointerEvents = "none";
+
+  // Play transition animation
   document.body
     .animate([{ opacity: "1" }, { opacity: "0" }], {
       duration: 500,
@@ -54,11 +57,12 @@ function changePage(url: string | null) {
       fill: "forwards",
     })
     .addEventListener("finish", () => {
+      // When done, actually redirect to target url
       location.href = url;
     });
 }
 
-// Prevent site displaying the transition end state when returning
+// Prevent site displaying the transition end state (black screen) when returning
 window.addEventListener("pageshow", (e: PageTransitionEvent) => {
   if (e.persisted) location.reload();
 });

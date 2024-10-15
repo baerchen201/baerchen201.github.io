@@ -140,7 +140,7 @@ baer1-button:hover {
   z-index: 2;
 }
 baer1-button > img,
-baer1-button .icon {
+baer1-button .logo {
   height: 25px;
   pointer-events: none;
 }
@@ -150,7 +150,7 @@ baer1-button .icon {
   display: flex;
   align-items: center;
 }
-#youtube .icon {
+#youtube .logo {
   transition: opacity 0.4s;
   height: auto;
   width: 30px;

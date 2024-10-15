@@ -30,7 +30,7 @@
     <!-- Other -->
     <script src="js/index.js"></script>
     <div id="version">
-      <!--! If you create a fork, add your own source code link here -->
+      <!-- If you create a fork, add your own source code link here and remove the CSS display property -->
       <div style="display: none">
         <a href="https://github.com/baerchen201/website-idk">baer2's website</a>
         forked from
@@ -53,55 +53,59 @@
       <h1>BAER1</h1>
       <h2 style="padding-bottom: 25px">Creating websites since 2017</h2>
 
-      <!-- Socials / Contact options -->
+      <!-- Buttons -->
       <div id="buttons">
         <baer1-button
-          data-href="https://github.com/baerchen201"
+          href="https://github.com/baerchen201"
           style="--color: 36, 41, 46; --hover-color: 43, 49, 55"
-          data-icon="img/github.svg"
+          logo="img/github.svg"
         >
           Github
         </baer1-button>
 
         <baer1-button
-          data-href="https://discord.com/users/1251935949626150922"
+          href="https://discord.com/users/1251935949626150922"
           style="--color: 88, 101, 242; --hover-color: 109, 121, 255"
-          data-icon="img/discord.svg"
+          logo="img/discord.svg"
         >
           Discord
         </baer1-button>
 
         <baer1-button
-          data-href="https://steamcommunity.com/id/baerchen201"
+          href="https://steamcommunity.com/id/baerchen201"
           style="--color: 27, 40, 56; --hover-color: 42, 71, 94"
-          data-icon="img/steam.svg"
+          logo="img/steam.svg"
         >
           Steam
         </baer1-button>
 
         <baer1-button
-          data-href="https://youtube.com/@baer1"
+          href="https://youtube.com/@baer1"
           style="--color: 40, 40, 40; --hover-color: 255, 0, 0"
           id="youtube"
         >
           <div>
-            <img class="icon" src="img/youtube-red.svg" />
-            <img class="icon" src="img/youtube-white.svg" />
+            <!-- Change logo when changing background -->
+            <img class="logo" src="img/youtube-red.svg" />
+            <img class="logo" src="img/youtube-white.svg" />
           </div>
           Youtube
         </baer1-button>
 
         <baer1-button
-          data-icon="img/e-mail.svg"
-          onclick="location.href='mailto:videocreator@outlook.de';location.reload()"
+          logo="img/e-mail.svg"
+          onclick="
+            // Open mailto link without transition
+            location.href='mailto:videocreator@outlook.de'
+          "
         >
           E-Mail
         </baer1-button>
 
         <baer1-button
-          data-href="https://t.me/baer1"
+          href="https://t.me/baer1"
           style="--color: 36, 161, 222; --hover-color: 111, 197, 255"
-          data-icon="img/telegram.svg"
+          logo="img/telegram.svg"
           id="telegram"
         >
           Telegram
@@ -109,7 +113,7 @@
       </div>
 
       <!-- Last-updated footer -->
-      <span id="update">14.10.2024 14:40</span>
+      <span id="update">16.10.2024</span>
     </div>
   </body>
 </html>
