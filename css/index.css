@@ -143,6 +143,7 @@ baer1-button > img,
 baer1-button .logo {
   height: 25px;
   pointer-events: none;
+  image-rendering: optimizeQuality;
 }
 
 #youtube > div {
