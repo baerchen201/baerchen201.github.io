@@ -130,7 +130,7 @@ baer1-button {
   background: var(--color);
   color: var(--text-color);
   font-weight: 300;
-  transition: background 0.4s, transform 0.2s;
+  transition: background 0.4s, transform 0.2s, filter 0.35s;
   cursor: pointer;
 }
 baer1-button:hover {
