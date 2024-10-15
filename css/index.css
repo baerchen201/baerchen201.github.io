@@ -114,9 +114,9 @@ donut-js {
 }
 
 baer1-button {
-  --color: 50, 50, 50;
-  --text-color: 255, 255, 255;
-  --hover-color: 100, 100, 100;
+  --color: rgb(50, 50, 50);
+  --text-color: rgb(255, 255, 255);
+  --hover-color: rgb(100, 100, 100);
   height: 50px;
   width: 100%;
   display: flex;
@@ -127,15 +127,15 @@ baer1-button {
   overflow: hidden;
 
   border-radius: 100px;
-  background: rgb(var(--color));
-  color: rgb(var(--text-color));
+  background: var(--color);
+  color: var(--text-color);
   font-weight: 300;
   transition: background 0.4s, transform 0.2s;
   cursor: pointer;
 }
 baer1-button:hover {
-  background: rgb(var(--hover-color));
-  box-shadow: 0 0 20px rgba(var(--hover-color), 0.314);
+  background: var(--hover-color);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--hover-color), transparent 66%);
   transform: scale(1.1);
   z-index: 2;
 }
