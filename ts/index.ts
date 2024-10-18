@@ -106,10 +106,19 @@ function copyString(value: string): Promise<void> {
         }
       )
       .addEventListener("finish", () => {
-        // When done, schedule popup element removal
+        // When done, schedule popup fadeout
         setTimeout(() => {
-          popup.remove();
-        }, 1000);
+          popup
+            .animate([{ opacity: "1" }, { opacity: "0" }], {
+              duration: 300,
+              easing: "ease-in",
+              fill: "forwards",
+            })
+            .addEventListener("finish", () => {
+              // When faded out, remove popup element
+              popup.remove();
+            });
+        }, 1750);
       });
   });
 }
