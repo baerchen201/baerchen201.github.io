@@ -156,8 +156,8 @@ customElements.define("baer1-copied", CopiedPopup);
 function copyString(value: string): Promise<void> {
   // Create new promise to return
   return new Promise((resolve: () => void, reject: (reason?: any) => void) => {
-    // Create popup element
-    let popup = new CopiedPopup(10000);
+    // Create popup element with a 10s timeout
+    let popup = new CopiedPopup(10e3);
 
     // Copy value to clipboard and schedule popup update
     navigator.clipboard
