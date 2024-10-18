@@ -45,11 +45,10 @@ class Button extends HTMLElement {
 }
 customElements.define("baer1-button", Button);
 
-function changePage(url: string | null) {
-  // Minimal link validation
+function changePage(url: string) {
+  // Check if link is empty
   if (!url)
-    // @ future me: Check commit 4551a361
-    // Print an error, both in console, and to the user
+    // Print an error, both in console and to the user
     return [alert, console.error].forEach((func) => {
       func(`Invalid url:\n${url}`);
     });
