@@ -24,6 +24,10 @@ class Button extends HTMLElement {
 
     if (!this.hasAttribute("oncontextmenu"))
       this.addEventListener("contextmenu", (e: MouseEvent) => {
+        // If shift key held, do not modify contextmenu behaviour
+        // Firefox is the best browser, but a lot of people still use Chromium browsers
+        if (e.shiftKey) return;
+
         // Prevent browser context menu opening
         e.preventDefault();
         // Copy link to clipboard when right-clicking
