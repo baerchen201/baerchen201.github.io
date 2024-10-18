@@ -70,8 +70,23 @@ function changePage(url: string) {
 }
 
 class CopiedPopup extends HTMLElement {
-  connectedCallback() {
+  _status: Promise<void>;
+  _resolve: () => void = (..._) => undefined;
+  _reject: (reason?: any) => void = (..._) => undefined;
+
+  constructor() {
+    super();
+
+    // Initial text
     this.innerText = "Copying...";
+
+    // Initialize status promise
+    this._status = new Promise(
+      (resolve: () => void, reject: (reason?: any) => void) => {
+        this._resolve = resolve;
+        this._reject = reject;
+      }
+    );
 
     // Play pop-up animation
     this.animate(
@@ -86,24 +101,35 @@ class CopiedPopup extends HTMLElement {
       }
     ).addEventListener("finish", () => {
       // When done, schedule fadeout
-      setTimeout(() => {
-        this.animate([{ opacity: "1" }, { opacity: "0" }], {
-          duration: 300,
-          easing: "ease-in",
-          fill: "forwards",
-        }).addEventListener("finish", () => {
-          // When faded out, remove self
-          this.remove();
-        });
-      }, 1750);
+      this._status.then(() => {
+        setTimeout(() => {
+          this.animate([{ opacity: "1" }, { opacity: "0" }], {
+            duration: 300,
+            easing: "ease-in",
+            fill: "forwards",
+          }).addEventListener("finish", () => {
+            // When faded out, remove self
+            this.remove();
+          });
+        }, 1750);
+      });
     });
   }
 
+  _lock() {
+    this.success = this.failure = () => {
+      throw new Error("Popup locked");
+    };
+  }
   success() {
+    this._resolve();
     this.innerText = "✓ Copied";
+    this._lock();
   }
   failure() {
+    this._resolve();
     this.innerText = "✖ Copy operation rejected";
+    this._lock();
   }
 }
 customElements.define("baer1-copied", CopiedPopup);
