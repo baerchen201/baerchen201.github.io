@@ -160,15 +160,16 @@ function copyString(value: string): Promise<void> {
     let popup = new CopiedPopup(10000);
 
     // Copy value to clipboard and schedule popup update
-    try {
-      navigator.clipboard.writeText(value).then(() => {
+    navigator.clipboard
+      .writeText(value)
+      .then(() => {
         popup.success();
         resolve();
+      })
+      .catch(() => {
+        popup.failure();
+        reject();
       });
-    } catch {
-      popup.failure();
-      reject();
-    }
 
     // Display the popup element
     document.body.appendChild(popup);
