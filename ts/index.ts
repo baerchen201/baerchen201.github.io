@@ -69,56 +69,64 @@ function changePage(url: string) {
     });
 }
 
+class CopiedPopup extends HTMLElement {
+  connectedCallback() {
+    this.innerText = "Copying...";
+
+    // Play pop-up animation
+    this.animate(
+      [
+        { opacity: "0", transform: "translateY(calc(100% + 8px))" },
+        { opacity: "1", transform: "none" },
+      ],
+      {
+        duration: 500,
+        easing: "ease-out",
+        fill: "forwards",
+      }
+    ).addEventListener("finish", () => {
+      // When done, schedule fadeout
+      setTimeout(() => {
+        this.animate([{ opacity: "1" }, { opacity: "0" }], {
+          duration: 300,
+          easing: "ease-in",
+          fill: "forwards",
+        }).addEventListener("finish", () => {
+          // When faded out, remove self
+          this.remove();
+        });
+      }, 1750);
+    });
+  }
+
+  success() {
+    this.innerText = "✓ Copied";
+  }
+  failure() {
+    this.innerText = "✖ Copy operation rejected";
+  }
+}
+customElements.define("baer1-copied", CopiedPopup);
+
 function copyString(value: string): Promise<void> {
   // Create new promise to return
   return new Promise((resolve: () => void, reject: (reason?: any) => void) => {
     // Create popup element
-    let popup = document.createElement("div");
-    popup.classList.add("copied");
-    popup.innerText = "Copying...";
+    let popup = new CopiedPopup();
 
     // Copy value to clipboard and schedule popup update
     try {
       navigator.clipboard.writeText(value).then(() => {
-        popup.innerText = "✓ Copied";
+        popup.success();
         resolve();
       });
     } catch {
-      popup.innerText = "✖ Copy operation rejected";
+      popup.failure();
       reject();
     }
 
     // Display the popup element
     document.body.appendChild(popup);
-
-    // Play popup animation
-    popup
-      .animate(
-        [
-          { opacity: "0", transform: "translateY(calc(100% + 8px))" },
-          { opacity: "1", transform: "none" },
-        ],
-        {
-          duration: 500,
-          easing: "ease-out",
-          fill: "forwards",
-        }
-      )
-      .addEventListener("finish", () => {
-        // When done, schedule popup fadeout
-        setTimeout(() => {
-          popup
-            .animate([{ opacity: "1" }, { opacity: "0" }], {
-              duration: 300,
-              easing: "ease-in",
-              fill: "forwards",
-            })
-            .addEventListener("finish", () => {
-              // When faded out, remove popup element
-              popup.remove();
-            });
-        }, 1750);
-      });
   });
 }
 

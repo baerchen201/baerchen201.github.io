@@ -190,7 +190,7 @@ baer1-button .logo {
   content: "Last updated on ";
 }
 
-div.copied {
+baer1-copied {
   position: fixed;
   bottom: 8px;
   align-self: center;
