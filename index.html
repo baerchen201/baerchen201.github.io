@@ -93,10 +93,11 @@
         </baer1-button>
 
         <baer1-button
+          href="videocreator@outlook.de"
           logo="img/e-mail.svg"
           onclick="
             // Open mailto link without transition
-            location.href='mailto:videocreator@outlook.de'
+            location.href = 'mailto:' + this.getAttribute('href')
           "
         >
           E-Mail

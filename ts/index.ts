@@ -19,7 +19,15 @@ class Button extends HTMLElement {
     if (!this.hasAttribute("onclick"))
       this.addEventListener("click", () => {
         // Replace instant change with transition
-        changePage(this.getAttribute("href"));
+        changePage(this.getAttribute("href")!);
+      });
+
+    if (!this.hasAttribute("oncontextmenu"))
+      this.addEventListener("contextmenu", (e: MouseEvent) => {
+        // Prevent browser context menu opening
+        e.preventDefault();
+        // Copy link to clipboard when right-clicking
+        copyString(this.getAttribute("href")!);
       });
 
     // If logo set, insert before text
@@ -60,6 +68,50 @@ function changePage(url: string | null) {
       // When done, actually redirect to target url
       location.href = url;
     });
+}
+
+function copyString(value: string): Promise<void> {
+  // Create new promise to return
+  return new Promise((resolve: () => void, reject: (reason?: any) => void) => {
+    // Create popup element
+    let popup = document.createElement("div");
+    popup.classList.add("copied");
+    popup.innerText = "Copying...";
+
+    // Copy value to clipboard and schedule popup update
+    try {
+      navigator.clipboard.writeText(value).then(() => {
+        popup.innerText = "✓ Copied";
+        resolve();
+      });
+    } catch {
+      popup.innerText = "✖ Copy operation rejected";
+      reject();
+    }
+
+    // Display the popup element
+    document.body.appendChild(popup);
+
+    // Play popup animation
+    popup
+      .animate(
+        [
+          { opacity: "0", transform: "translateY(calc(100% + 8px))" },
+          { opacity: "1", transform: "none" },
+        ],
+        {
+          duration: 500,
+          easing: "ease-out",
+          fill: "forwards",
+        }
+      )
+      .addEventListener("finish", () => {
+        // When done, schedule popup element removal
+        setTimeout(() => {
+          popup.remove();
+        }, 1000);
+      });
+  });
 }
 
 // Prevent site displaying the transition end state (black screen) when returning

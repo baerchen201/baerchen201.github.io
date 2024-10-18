@@ -189,3 +189,12 @@ baer1-button .logo {
 #update::before {
   content: "Last updated on ";
 }
+
+div.copied {
+  position: fixed;
+  bottom: 8px;
+  align-self: center;
+  background: #222;
+  border-radius: 5px;
+  padding: 10px;
+}
