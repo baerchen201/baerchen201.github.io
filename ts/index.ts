@@ -74,7 +74,7 @@ class CopiedPopup extends HTMLElement {
   _resolve: () => void = (..._) => undefined;
   _reject: (reason?: any) => void = (..._) => undefined;
 
-  constructor() {
+  constructor(timeout?: number) {
     super();
 
     // Initial text
@@ -100,6 +100,9 @@ class CopiedPopup extends HTMLElement {
         fill: "forwards",
       }
     ).addEventListener("finish", () => {
+      // Set timeout
+      if (timeout) timeout = setTimeout(this._reject, timeout);
+
       // When done, schedule fadeout
       this._status.then(() => {
         setTimeout(() => {
@@ -112,6 +115,22 @@ class CopiedPopup extends HTMLElement {
             this.remove();
           });
         }, 1750);
+      });
+
+      // If times out, display error
+      this._status.catch(() => {
+        this.innerText = "✖ Copy operation timed out";
+        this._lock();
+        setTimeout(() => {
+          this.animate([{ opacity: "1" }, { opacity: "0" }], {
+            duration: 300,
+            easing: "ease-in",
+            fill: "forwards",
+          }).addEventListener("finish", () => {
+            // When faded out, remove self
+            this.remove();
+          });
+        }, 500);
       });
     });
   }
@@ -138,7 +157,7 @@ function copyString(value: string): Promise<void> {
   // Create new promise to return
   return new Promise((resolve: () => void, reject: (reason?: any) => void) => {
     // Create popup element
-    let popup = new CopiedPopup();
+    let popup = new CopiedPopup(10000);
 
     // Copy value to clipboard and schedule popup update
     try {
