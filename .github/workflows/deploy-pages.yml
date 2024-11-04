@@ -1,15 +1,11 @@
-# Copied from baerchen201/ts-compile-test
-# https://github.com/baerchen201/ts-compile-test/blob/main/.github/workflows/deploy-pages.yml
-
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy TypeScript website to Pages
+name: Deploy website to GitHub Pages
 
 on:
-  # Runs on pushes targeting the default branch
+  # Automatically deploy when changes are made
   push:
     branches: ["main"]
 
-  # Allows you to run this workflow manually from the Actions tab
+  # Allow manual redeployment
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
@@ -19,30 +15,31 @@ permissions:
   id-token: write
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# However, do not cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  build:
+  build: # Compile TypeScript, build website, prepare for deployment
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Build TypeScript files
+
+      - name: Compile TypeScript
         run: tsc
-      - name: Add secret ingredient
-        run: wget https://github.com/baerchen201/baerchen201.github.io/blob/c0b84a621f69528297934a81303db0c03a50e7fb/E765SEKVgAQxpta.gif?raw=true -O E765SEKVgAQxpta.gif
+      - name: Remove TypeScript source files # Not required, so just clean it up
+        run: rm -rf ./www/ts
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: "."
+          path: "./www" # Only upload website
 
-  deploy:
+  deploy: # Deploy prepared page
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

@@ -7,8 +7,8 @@
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    A copy of the GNU General Public License should be hosted along with
-    this website (LICENSE). If not, see <https://www.gnu.org/licenses/>.
+    A copy of the GNU General Public License can be found on this website's
+    GitHub repository (LICENSE). If not, see <https://www.gnu.org/licenses/>.
 
     videocreator@outlook.de
 */
