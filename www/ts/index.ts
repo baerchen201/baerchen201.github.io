@@ -89,7 +89,7 @@ class CopiedPopup extends HTMLElement {
       (resolve: () => void, reject: (reason?: any) => void) => {
         this._resolve = resolve;
         this._reject = reject;
-      }
+      },
     );
 
     // Play pop-up animation
@@ -102,7 +102,7 @@ class CopiedPopup extends HTMLElement {
         duration: 500,
         easing: "ease-out",
         fill: "forwards",
-      }
+      },
     ).addEventListener("finish", () => {
       // Set timeout
       if (timeout) timeout = setTimeout(this._reject, timeout);

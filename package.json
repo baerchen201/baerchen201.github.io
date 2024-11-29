@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "prettier": "^3.4.1",
+    "prettier-plugin-sh": "^0.14.0",
+    "typescript": "^5.7.2"
+  }
+}
