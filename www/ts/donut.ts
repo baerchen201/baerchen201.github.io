@@ -1,5 +1,5 @@
 // Based on https://www.a1k0n.net/js/donut.js
-// modified to work with any website
+// modified to be more portable and ported to typescript by baer1
 
 class Donut extends HTMLElement {
   intervalId?: number;

@@ -1,0 +1,19 @@
+donut-js {
+  /* General */
+  white-space: pre;
+  font-family: monospace;
+  user-select: none;
+  pointer-events: none;
+  text-align: center;
+
+  /* Visual */
+  font-size: larger;
+  background: #000;
+
+  /* Layout */
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+}

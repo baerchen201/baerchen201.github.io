@@ -1,27 +1,20 @@
 name: Deploy website to GitHub Pages
 
 on:
-  # Automatically deploy when changes are made
   push:
-    branches: ["main"]
-
-  # Allow manual redeployment
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do not cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  build: # Compile TypeScript, build website, prepare for deployment
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -29,17 +22,16 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Compile TypeScript
-        run: tsc
-      - name: Remove TypeScript source files # Not required, so just clean it up
-        run: rm -rf ./www/ts
+      - name: Run build script
+        run: bash ./build.sh
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "./www" # Only upload website
+          path: "./www"
 
-  deploy: # Deploy prepared page
+  deploy:
+    if: github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
